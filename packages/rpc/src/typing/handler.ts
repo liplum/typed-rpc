@@ -3,7 +3,7 @@ import { ExtractStringKey } from "./utils.js"
 import { RpcResponse, MergeTypedResponse } from "./response.js"
 import { BlankInput, BlankSchema, Input, MergePath, Schema } from "./rpc.js"
 
-export interface IRpcRefHandler<
+export interface IRpcRoute<
   TMethod extends string = string,
   TSchema extends Schema = BlankSchema,
   TBasePath extends string = "/"

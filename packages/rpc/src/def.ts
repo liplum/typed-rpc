@@ -1,4 +1,4 @@
-import { IRpcRefHandler } from "./typing/handler.js"
+import { IRpcRoute } from "./typing/handler.js"
 import { RpcResponseFactory, RpcResponse } from "./typing/response.js"
 import { StatusCode } from "./typing/status-code.js"
 import { mergePath } from "./utils/request.js"
@@ -58,12 +58,12 @@ export class RpcNode<
   private _basePath: string = '/'
   routes: RouterRoute[] = []
 
-  get!: IRpcRefHandler<'get', TSchema, TBasePath>
-  post!: IRpcRefHandler<'post', TSchema, TBasePath>
-  put!: IRpcRefHandler<'put', TSchema, TBasePath>
-  delete!: IRpcRefHandler<'delete', TSchema, TBasePath>
-  options!: IRpcRefHandler<'options', TSchema, TBasePath>
-  patch!: IRpcRefHandler<'patch', TSchema, TBasePath>
+  get!: IRpcRoute<'get', TSchema, TBasePath>
+  post!: IRpcRoute<'post', TSchema, TBasePath>
+  put!: IRpcRoute<'put', TSchema, TBasePath>
+  delete!: IRpcRoute<'delete', TSchema, TBasePath>
+  options!: IRpcRoute<'options', TSchema, TBasePath>
+  patch!: IRpcRoute<'patch', TSchema, TBasePath>
 
   route<
     TSubPath extends string,

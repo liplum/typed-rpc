@@ -25,33 +25,51 @@ export type MergeTypedResponse<T> = T extends Promise<infer T2>
   ? T
   : RpcResponse
 
+export type RpcResponseJson<
+  TValue extends JSONValue | SimplifyDeepArray<unknown> | InvalidJSONValue = null,
+  TStatus extends ContentfulStatusCode = ContentfulStatusCode,
+> = RpcResponse<
+  SimplifyDeepArray<TValue> extends JSONValue
+  ? JSONValue extends SimplifyDeepArray<TValue>
+  ? never
+  : JSONParsed<TValue>
+  : never,
+  TStatus,
+  'json'
+>
+
+export type RpcResponseText<
+  TStatus extends ContentfulStatusCode = ContentfulStatusCode,
+> = RpcResponse<string, TStatus, 'text'>
+
+export type RpcResponseRedirect<
+  TStatus extends RedirectStatusCode = RedirectStatusCode,
+> = RpcResponse<undefined, TStatus, 'redirect'>
+
+export type RpcResponseAny<
+  TStatus extends StatusCode = ContentfulStatusCode,
+> = RpcResponse<undefined, TStatus, 'body'>
+
+
 export interface RpcResponseFactory {
   union: RpcResponseUnion
 
   json: <
     TValue extends JSONValue | SimplifyDeepArray<unknown> | InvalidJSONValue = null,
     TStatus extends ContentfulStatusCode = ContentfulStatusCode,
-  >() => RpcResponse<
-    SimplifyDeepArray<TValue> extends JSONValue
-    ? JSONValue extends SimplifyDeepArray<TValue>
-    ? never
-    : JSONParsed<TValue>
-    : never,
-    TStatus,
-    'json'
-  >
+  >() => RpcResponseJson<TValue, TStatus>
 
   text: <
     TStatus extends ContentfulStatusCode = ContentfulStatusCode,
-  >() => RpcResponse<string, TStatus, 'text'>
+  >() => RpcResponseText<TStatus>
 
   redirect: <
     TStatus extends RedirectStatusCode = RedirectStatusCode
-  >() => RpcResponse<undefined, TStatus, "redirect">
+  >() => RpcResponseRedirect<TStatus>
 
   any: <
     TStatus extends StatusCode = ContentfulStatusCode
-  >() => RpcResponse<undefined, TStatus, "body">
+  >() => RpcResponseAny<TStatus>
 }
 
 export type RpcResponseUnion = {
