@@ -6,9 +6,8 @@ const rpc = defineRpc()
     .post(() => { })
   )
   .route("/chat", defineRpc()
-    .route("/message", defineRpc()
-      .post(() => { })
-  )
+    .post("/send-message", () => { }
+    )
   )
 
 type RpcType = typeof rpc
@@ -26,7 +25,7 @@ const client = rpcClient<RpcType>('http://localhost:3000')
   })
 }
 {
-  const res = await client.chat.message.$post({
+  const res = await client.chat["send-message"].$post({
 
   })
 }

@@ -1,7 +1,8 @@
+import { IRpcRefHandler } from "./handler.js"
 import { JSONValue } from "./json.js"
 import { StatusCode } from "./status-code.js"
 import { mergePath } from "./utils/request.js"
-import { ExtractStringKey, IsAny, MergePath, MergeSchemaPath, PrefixWith$, Simplify, UnionToIntersection } from "./utils/typing.js"
+import { IsAny, MergePath, MergeSchemaPath, PrefixWith$, Simplify, UnionToIntersection } from "./utils/typing.js"
 
 export type BlankSchema = {}
 export type BlankInput = {}
@@ -139,28 +140,13 @@ export class RpcNode<
   }
 }
 
-type MergeTypedResponse<T> = T extends Promise<infer T2>
+export type MergeTypedResponse<T> = T extends Promise<infer T2>
   ? T2 extends TypedResponse
   ? T2
   : TypedResponse
   : T extends TypedResponse
   ? T
   : TypedResponse
-
-
-export interface IRpcRefHandler<
-  TMethod extends string = string,
-  TSchema extends Schema = BlankSchema,
-  TBasePath extends string = "/"
-> {
-  <
-    TPath extends string = ExtractStringKey<TSchema> extends never ? TBasePath : ExtractStringKey<TSchema>,
-    TInput extends Input = BlankInput,
-    TRes extends HandlerResponse<any> = any,
-  >(
-    handler: IRefNode<TPath, TInput, TRes>
-  ): RpcNode<TSchema & ToSchema<TMethod, TPath, TInput, MergeTypedResponse<TRes>>, TBasePath>
-}
 
 export type Endpoint = {
   input: any
