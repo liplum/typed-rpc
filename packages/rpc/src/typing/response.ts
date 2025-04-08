@@ -29,12 +29,9 @@ export interface RpcResponseFactory {
   union: RpcResponseUnion
 
   json: <
-    TValue extends JSONValue | SimplifyDeepArray<unknown> | InvalidJSONValue,
-    TStatus extends ContentfulStatusCode,
-  >(
-    object: TValue,
-    arg?: TStatus,
-  ) => RpcResponse<
+    TValue extends JSONValue | SimplifyDeepArray<unknown> | InvalidJSONValue = null,
+    TStatus extends ContentfulStatusCode = ContentfulStatusCode,
+  >() => RpcResponse<
     SimplifyDeepArray<TValue> extends JSONValue
     ? JSONValue extends SimplifyDeepArray<TValue>
     ? never
@@ -45,24 +42,16 @@ export interface RpcResponseFactory {
   >
 
   text: <
-    TValue extends string,
-    TStatus extends ContentfulStatusCode,
-  >(
-    text: TValue,
-    arg?: TStatus,
-  ) => RpcResponse<
-    TValue,
-    TStatus,
-    'text'
-  >
+    TStatus extends ContentfulStatusCode = ContentfulStatusCode,
+  >() => RpcResponse<string, TStatus, 'text'>
 
-  redirect: <TStatus extends RedirectStatusCode = 302>(
-    status?: TStatus
-  ) => RpcResponse<undefined, TStatus, "redirect">
+  redirect: <
+    TStatus extends RedirectStatusCode = RedirectStatusCode
+  >() => RpcResponse<undefined, TStatus, "redirect">
 
-  any: <TStatus extends StatusCode>(
-    status?: TStatus
-  ) => RpcResponse<undefined, TStatus, "body">
+  any: <
+    TStatus extends StatusCode = ContentfulStatusCode
+  >() => RpcResponse<undefined, TStatus, "body">
 }
 
 export type RpcResponseUnion = {

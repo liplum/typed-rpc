@@ -3,19 +3,19 @@ import { rpc, rpcClient } from "@liplum/rpc"
 const rpcDef = rpc()
   .route("/user", rpc()
     .get(res => res.union(
-      res.json({
+      res.json<{
         success: true,
-      }, 206),
-      res.json({
-        result: "name",
-      }, 200))
+      }, 206>(),
+      res.json<{
+        result: string,
+      }, 200>())
     )
     .post(() => { })
   )
   .route("/chat", rpc()
-    .post("/send-message", res => res.json({
+    .post("/send-message", res => res.json<{
       success: true,
-    }))
+    }>())
   )
 
 type RpcType = typeof rpcDef
