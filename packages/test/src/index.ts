@@ -3,17 +3,6 @@ import express, { Router } from "express"
 
 const rpcDef = rpc()
   .get("/ping", res => res.text())
-  .route("/user", rpc()
-    .get(r => r.union(
-      r.json<{
-        success: true,
-      }, 206>(),
-      r.json<{
-        result: string,
-      }, 200>())
-    )
-    .post(() => { })
-  )
   .route("/chat", rpc()
     .post("/send-message", r => r.union(
       r.json<{
@@ -32,6 +21,7 @@ const rpcDef = rpc()
   )
 
 type RpcType = typeof rpcDef
+const client = rpcClient<RpcType>('http://localhost:12888')
 
 const createApp = () => {
   const app = express()
@@ -58,7 +48,6 @@ const createApp = () => {
 }
 createApp().listen(12888)
 
-const client = rpcClient<RpcType>('http://localhost:12888')
 
 {
   const res = await client.ping.$get()
