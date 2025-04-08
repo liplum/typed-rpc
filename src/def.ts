@@ -32,12 +32,12 @@ export type TypedResponse<
 
 export type HandlerResponse<O> = TypedResponse<O>
 
-export type MiddlewareHandler<
+export type MiddlewareNode<
   TPath extends string = string,
   TInput extends Input = {}
 > = (_: TPath | TInput | undefined) => void
 
-export type FinalHandler<
+export type TerminalNode<
   TPath extends string = any,
   TInput extends Input = BlankInput,
   TRes extends HandlerResponse<any> = any
@@ -47,7 +47,7 @@ export type IRefNode<
   TPath extends string = any,
   TInput extends Input = BlankInput,
   TRes extends HandlerResponse<any> = any
-> = MiddlewareHandler<TPath, TInput> | FinalHandler<TPath, TInput, TRes>
+> = MiddlewareNode<TPath, TInput> | TerminalNode<TPath, TInput, TRes>
 
 export const defineRpc = <
   TSchema extends Schema = BlankSchema,
