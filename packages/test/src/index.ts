@@ -1,4 +1,4 @@
-import { rpc, rpcClient } from "../src"
+import { rpc, rpcClient } from "@liplum/rpc"
 
 const rpcDef = rpc()
   .route("/user", rpc()

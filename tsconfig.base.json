@@ -23,8 +23,5 @@
     "noFallthroughCasesInSwitch": true,
     "moduleResolution": "node",
     "esModuleInterop": true
-  },
-  "include": [
-    "src"
-  ],
+  }
 }

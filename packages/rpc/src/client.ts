@@ -90,7 +90,7 @@ export type ClientRequestOptions<T = unknown> = {
   webSocket?: (...args: ConstructorParameters<typeof WebSocket>) => WebSocket
   /**
    * Standard `RequestInit`, caution that this take highest priority
-   * and could be used to overwrite things that DefineRPC sets for you, like `body | method | headers`.
+   * and could be used to overwrite things that rpc sets for you, like `body | method | headers`.
    *
    * If you want to add some headers, use in `headers` instead of `init`
    */

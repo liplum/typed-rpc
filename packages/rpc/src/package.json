@@ -1,0 +1,40 @@
+{
+  "name": "@liplum/rpc",
+  "version": "0.1.0",
+  "description": "Define the strong-typed RPC client in TypeScript.",
+  "main": "dist/index.js",
+  "type": "module",
+  "typings": "dist/index.d.ts",
+  "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "tsc"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liplum/rpc.js.git"
+  },
+  "author": "Liplum <Li_plum@outlook.com>",
+  "devDependencies": {
+    "typescript": "5.8.3"
+  },
+  "bugs": {
+    "url": "https://github.com/liplum/rpc.js/issues"
+  },
+  "homepage": "https://github.com/liplum/rpc.js#readme",
+  "keywords": [
+    "rpc"
+  ],
+  "dependencies": {
+  },
+  "packageManager": "pnpm@10.4.0"
+}
