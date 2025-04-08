@@ -120,14 +120,12 @@ export class RpcNode<
   /**
  * `.basePath()` allows base paths to be specified.
  *
- * @see {@link https://hono.dev/docs/api/routing#base-path}
- *
  * @param {string} path - base Path
- * @returns {Hono} changed Hono instance
+ * @returns {RpcNode} changed RpcNode instance
  *
  * @example
  * ```ts
- * const api = new Hono().basePath('/api')
+ * const api = rpc().basePath('/api')
  * ```
  */
   basePath<TSubPath extends string>(path: TSubPath): RpcNode<TSchema, MergePath<TBasePath, TSubPath>> {
