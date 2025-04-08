@@ -42,7 +42,6 @@ export const replaceUrlProtocol = (urlString: string, protocol: 'ws' | 'http') =
   }
 }
 
-
 export type ObjectType<T = unknown> = {
   [key: string]: T
 }

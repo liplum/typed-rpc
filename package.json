@@ -1,5 +1,5 @@
 {
-  "name": "@liplum/define-rpc",
+  "name": "@liplum/rpc",
   "version": "0.1.0",
   "description": "Define the strong-typed RPC client in TypeScript.",
   "main": "dist/index.js",
@@ -21,16 +21,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/liplum/define-rpc.js.git"
+    "url": "git+https://github.com/liplum/rpc.js.git"
   },
   "author": "Liplum <Li_plum@outlook.com>",
   "devDependencies": {
     "typescript": "5.8.3"
   },
   "bugs": {
-    "url": "https://github.com/liplum/define-rpc.js/issues"
+    "url": "https://github.com/liplum/rpc.js/issues"
   },
-  "homepage": "https://github.com/liplum/define-rpc.js#readme",
+  "homepage": "https://github.com/liplum/rpc.js#readme",
   "keywords": [
     "rpc"
   ],

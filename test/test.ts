@@ -13,7 +13,7 @@ const rpcDef = rpc()
     .post(() => { })
   )
   .route("/chat", rpc()
-    .post("/send-message", () => { }
+    .post("/send-message", res => res.json({})
     )
   )
 
