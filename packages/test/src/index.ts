@@ -27,10 +27,6 @@ const rpcDef = rpc()
         }
       }>())
   )
-
-type RpcType = typeof rpcDef
-const client = rpcClient<RpcType>('http://localhost:12888')
-
 const createApp = () => {
   const app = express()
   app.use(express.json())
@@ -43,7 +39,7 @@ const createApp = () => {
     body: sendMessageZod,
   }), (req, res) => {
     const { content } = req.body
-    const success = Math.random() < 0.5
+    const success = Math.random() < 0.8
     res.status(200).send(success ? {
       success: true,
       data: {
@@ -56,12 +52,14 @@ const createApp = () => {
       }
     })
   })
-  return app
+  app.listen(12888)
 }
-createApp().listen(12888)
 
+type RpcDefinition = typeof rpcDef
+const client = rpcClient<RpcDefinition>('http://localhost:12888')
 
-{
+createApp()
+const pingTest = async () => {
   const res = await client.ping.$get()
   if (res.ok) {
     console.log(await res.text())
@@ -70,7 +68,7 @@ createApp().listen(12888)
   }
 }
 
-{
+const sendMessageTest = async () => {
   const res = await client.chat["send-message"].$post({
     json: {
       content: "Hello, world!",
@@ -87,3 +85,6 @@ createApp().listen(12888)
     console.error(`${res.status} ${res.statusText}: ${await res.text()}`)
   }
 }
+
+await pingTest()
+await sendMessageTest()
