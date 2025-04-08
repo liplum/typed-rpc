@@ -13,20 +13,17 @@ const rpcDef = rpc()
   .route("/chat", rpc()
     .post("/send-message",
       zValidator("json", sendMessageZod),
-      r => r.union(
-        r.json<{
-          success: true,
-          data: {
-            content: string
-          }
-        }>(),
-        r.json<{
-          success: false,
-          error: {
-            reason: string,
-          }
-        }>(),
-      ))
+      r => r.json<{
+        success: true,
+        data: {
+          content: string
+        }
+      } | {
+        success: false,
+        error: {
+          reason: string,
+        }
+      }>())
   )
 
 type RpcType = typeof rpcDef
@@ -62,7 +59,11 @@ createApp().listen(12888)
 
 {
   const res = await client.ping.$get()
-  console.log(await res.text())
+  if (res.ok) {
+    console.log(await res.text())
+  } else {
+    console.error(`${res.status} ${res.statusText}`)
+  }
 }
 
 {
@@ -71,10 +72,15 @@ createApp().listen(12888)
       content: "Hello, world!"
     }
   })
-  const data = await res.json()
-  if (data.success) {
-    console.log(`Succeed to send message "${data.data.content}."`)
+  if (res.ok) {
+    const data = await res.json()
+    console.log(JSON.stringify(data))
+    if (data.success) {
+      console.log(`Succeed to send message "${data.data.content}."`)
+    } else {
+      console.log(`Failed to send message due to "${data.error.reason}"`)
+    }
   } else {
-    console.log(`Failed to send message due to "${data.error.reason}"`)
+    console.error(`${res.status} ${res.statusText}`)
   }
 }
