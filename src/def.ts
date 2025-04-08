@@ -1,4 +1,5 @@
 import { IRpcRefHandler } from "./handler.js"
+import { RpcResponseFactory } from "./response.js"
 import { StatusCode } from "./status-code.js"
 import { JSONValue } from "./utils/json.js"
 import { mergePath } from "./utils/request.js"
@@ -17,31 +18,31 @@ export type Input = {
 }
 
 export type TypedResponse<
-  T = unknown,
-  U extends StatusCode = StatusCode,
-  F extends ResponseFormat = T extends string
+  TValue = unknown,
+  TStatus extends StatusCode = StatusCode,
+  TFormat extends ResponseFormat = TValue extends string
   ? 'text'
-  : T extends JSONValue
+  : TValue extends JSONValue
   ? 'json'
   : ResponseFormat
 > = {
-  _data: T
-  _status: U
-  _format: F
+  _data: TValue
+  _status: TStatus
+  _format: TFormat
 }
 
 export type HandlerResponse<O> = TypedResponse<O>
 
 export type MiddlewareNode<
-  TPath extends string = string,
-  TInput extends Input = {}
-> = (_: TPath | TInput | undefined) => void
+  _TPath extends string = string,
+  _TInput extends Input = {}
+> = () => void
 
 export type TerminalNode<
-  TPath extends string = any,
-  TInput extends Input = BlankInput,
+  _TPath extends string = any,
+  _TInput extends Input = BlankInput,
   TRes extends HandlerResponse<any> = any
-> = (_: TPath | TInput | undefined) => TRes
+> = (res: RpcResponseFactory) => TRes
 
 export type IRefNode<
   TPath extends string = any,

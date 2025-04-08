@@ -2,7 +2,17 @@ import { defineRpc, rpcClient } from "../src"
 
 const rpc = defineRpc()
   .route("/user", defineRpc()
-    .get(() => { })
+    .get(res => {
+      if (1) {
+        return res.json({
+          success: true,
+        }, 206)
+      } else {
+        return res.json({
+          result: "name",
+        }, 200)
+      }
+    })
     .post(() => { })
   )
   .route("/chat", defineRpc()
@@ -18,6 +28,8 @@ const client = rpcClient<RpcType>('http://localhost:3000')
   const res = await client.user.$get({
 
   })
+  const data = await res.json()
+
 }
 {
   const res = await client.user.$post({
