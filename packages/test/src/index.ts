@@ -13,8 +13,9 @@ const rpcDef = rpc()
     .post(() => { })
   )
   .route("/chat", rpc()
-    .post("/send-message", res => res.json({})
-    )
+    .post("/send-message", res => res.json({
+      success: true,
+    }))
   )
 
 type RpcType = typeof rpcDef

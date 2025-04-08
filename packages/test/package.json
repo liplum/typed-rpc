@@ -9,7 +9,10 @@
     "start": "node dist/index.js"
   },
   "devDependencies": {
-    "typescript": "5.8.3",
-    "@liplum/rpc": "workspace:^"
+    "@liplum/rpc": "workspace:^",
+    "typescript": "5.8.3"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
   }
 }
