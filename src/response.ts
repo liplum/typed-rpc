@@ -4,6 +4,13 @@ import { InvalidJSONValue, JSONParsed, JSONValue, } from "./utils/json.js"
 import { SimplifyDeepArray } from "./utils/typing.js"
 
 export interface RpcResponseFactory {
+  union: <
+    TRes1 extends TypedResponse,
+    TRes2 extends TypedResponse,
+  >(...res: [
+    TRes1, TRes2
+  ]) => TRes1 | TRes2
+
   json: <
     TValue extends JSONValue | SimplifyDeepArray<unknown> | InvalidJSONValue,
     TStatus extends ContentfulStatusCode,

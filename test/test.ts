@@ -2,17 +2,14 @@ import { defineRpc, rpcClient } from "../src"
 
 const rpc = defineRpc()
   .route("/user", defineRpc()
-    .get(res => {
-      if (1) {
-        return res.json({
-          success: true,
-        }, 206)
-      } else {
-        return res.json({
-          result: "name",
-        }, 200)
-      }
-    })
+    .get(res => res.union(
+      res.json({
+        success: true,
+      }, 206),
+      res.json({
+        result: "name",
+      }, 200))
+    )
     .post(() => { })
   )
   .route("/chat", defineRpc()
