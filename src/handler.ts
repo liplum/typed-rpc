@@ -117,4 +117,298 @@ export interface IRpcRefHandler<
       IRefNode<TPath, TInputLast, TRes>,
     ]
   ): RpcNode<TSchema & ToSchema<TMethod, MergePath<TBasePath, TPath>, TInputLast, MergeTypedResponse<TRes>>, TBasePath>
+
+  // app.get(handler x5)
+  <
+    TPath extends string = ExtractStringKey<TSchema> extends never ? TBasePath : ExtractStringKey<TSchema>,
+    TInput extends Input = BlankInput,
+    TInput2 extends Input = BlankInput,
+    TInput3 extends Input = BlankInput,
+    TInput4 extends Input = BlankInput,
+    TInputLast extends Input = BlankInput,
+    TRes extends HandlerResponse<any> = any,
+  >(
+    ...handlers: [
+      IRefNode<TPath, TInput, TRes>,
+      IRefNode<TPath, TInput2, TRes>,
+      IRefNode<TPath, TInput3, TRes>,
+      IRefNode<TPath, TInput4, TRes>,
+      IRefNode<TPath, TInputLast, TRes>,
+    ]
+  ): RpcNode<TSchema & ToSchema<TMethod, TPath, TInputLast, MergeTypedResponse<TRes>>, TBasePath>
+
+  // app.get(path, handler x5)
+  <
+    TPath extends string = ExtractStringKey<TSchema> extends never ? TBasePath : ExtractStringKey<TSchema>,
+    TInput extends Input = BlankInput,
+    TInput2 extends Input = BlankInput,
+    TInput3 extends Input = BlankInput,
+    TInput4 extends Input = BlankInput,
+    TInputLast extends Input = BlankInput,
+    TRes extends HandlerResponse<any> = any,
+  >(
+    path: TPath,
+    ...handlers: [
+      IRefNode<TPath, TInput, TRes>,
+      IRefNode<TPath, TInput2, TRes>,
+      IRefNode<TPath, TInput3, TRes>,
+      IRefNode<TPath, TInput4, TRes>,
+      IRefNode<TPath, TInputLast, TRes>,
+    ]
+  ): RpcNode<TSchema & ToSchema<TMethod, MergePath<TBasePath, TPath>, TInputLast, MergeTypedResponse<TRes>>, TBasePath>
+
+  // app.get(handler x6)
+  <
+    TPath extends string = ExtractStringKey<TSchema> extends never ? TBasePath : ExtractStringKey<TSchema>,
+    TInput extends Input = BlankInput,
+    TInput2 extends Input = BlankInput,
+    TInput3 extends Input = BlankInput,
+    TInput4 extends Input = BlankInput,
+    TInput5 extends Input = BlankInput,
+    TInputLast extends Input = BlankInput,
+    TRes extends HandlerResponse<any> = any,
+  >(
+    ...handlers: [
+      IRefNode<TPath, TInput, TRes>,
+      IRefNode<TPath, TInput2, TRes>,
+      IRefNode<TPath, TInput3, TRes>,
+      IRefNode<TPath, TInput4, TRes>,
+      IRefNode<TPath, TInput5, TRes>,
+      IRefNode<TPath, TInputLast, TRes>,
+    ]
+  ): RpcNode<TSchema & ToSchema<TMethod, TPath, TInputLast, MergeTypedResponse<TRes>>, TBasePath>
+
+  // app.get(path, handler x6)
+  <
+    TPath extends string = ExtractStringKey<TSchema> extends never ? TBasePath : ExtractStringKey<TSchema>,
+    TInput extends Input = BlankInput,
+    TInput2 extends Input = BlankInput,
+    TInput3 extends Input = BlankInput,
+    TInput4 extends Input = BlankInput,
+    TInput5 extends Input = BlankInput,
+    TInputLast extends Input = BlankInput,
+    TRes extends HandlerResponse<any> = any,
+  >(
+    path: TPath,
+    ...handlers: [
+      IRefNode<TPath, TInput, TRes>,
+      IRefNode<TPath, TInput2, TRes>,
+      IRefNode<TPath, TInput3, TRes>,
+      IRefNode<TPath, TInput4, TRes>,
+      IRefNode<TPath, TInput5, TRes>,
+      IRefNode<TPath, TInputLast, TRes>,
+    ]
+  ): RpcNode<TSchema & ToSchema<TMethod, MergePath<TBasePath, TPath>, TInputLast, MergeTypedResponse<TRes>>, TBasePath>
+
+  // app.get(handler x7)
+  <
+    TPath extends string = ExtractStringKey<TSchema> extends never ? TBasePath : ExtractStringKey<TSchema>,
+    TInput extends Input = BlankInput,
+    TInput2 extends Input = BlankInput,
+    TInput3 extends Input = BlankInput,
+    TInput4 extends Input = BlankInput,
+    TInput5 extends Input = BlankInput,
+    TInput6 extends Input = BlankInput,
+    TInputLast extends Input = BlankInput,
+    TRes extends HandlerResponse<any> = any,
+  >(
+    ...handlers: [
+      IRefNode<TPath, TInput, TRes>,
+      IRefNode<TPath, TInput2, TRes>,
+      IRefNode<TPath, TInput3, TRes>,
+      IRefNode<TPath, TInput4, TRes>,
+      IRefNode<TPath, TInput5, TRes>,
+      IRefNode<TPath, TInput6, TRes>,
+      IRefNode<TPath, TInputLast, TRes>,
+    ]
+  ): RpcNode<TSchema & ToSchema<TMethod, TPath, TInputLast, MergeTypedResponse<TRes>>, TBasePath>
+
+  // app.get(path, handler x7)
+  <
+    TPath extends string = ExtractStringKey<TSchema> extends never ? TBasePath : ExtractStringKey<TSchema>,
+    TInput extends Input = BlankInput,
+    TInput2 extends Input = BlankInput,
+    TInput3 extends Input = BlankInput,
+    TInput4 extends Input = BlankInput,
+    TInput5 extends Input = BlankInput,
+    TInput6 extends Input = BlankInput,
+    TInputLast extends Input = BlankInput,
+    TRes extends HandlerResponse<any> = any,
+  >(
+    path: TPath,
+    ...handlers: [
+      IRefNode<TPath, TInput, TRes>,
+      IRefNode<TPath, TInput2, TRes>,
+      IRefNode<TPath, TInput3, TRes>,
+      IRefNode<TPath, TInput4, TRes>,
+      IRefNode<TPath, TInput5, TRes>,
+      IRefNode<TPath, TInput6, TRes>,
+      IRefNode<TPath, TInputLast, TRes>,
+    ]
+  ): RpcNode<TSchema & ToSchema<TMethod, MergePath<TBasePath, TPath>, TInputLast, MergeTypedResponse<TRes>>, TBasePath>
+
+  // app.get(handler x8)
+  <
+    TPath extends string = ExtractStringKey<TSchema> extends never ? TBasePath : ExtractStringKey<TSchema>,
+    TInput extends Input = BlankInput,
+    TInput2 extends Input = BlankInput,
+    TInput3 extends Input = BlankInput,
+    TInput4 extends Input = BlankInput,
+    TInput5 extends Input = BlankInput,
+    TInput6 extends Input = BlankInput,
+    TInput7 extends Input = BlankInput,
+    TInputLast extends Input = BlankInput,
+    TRes extends HandlerResponse<any> = any,
+  >(
+    ...handlers: [
+      IRefNode<TPath, TInput, TRes>,
+      IRefNode<TPath, TInput2, TRes>,
+      IRefNode<TPath, TInput3, TRes>,
+      IRefNode<TPath, TInput4, TRes>,
+      IRefNode<TPath, TInput5, TRes>,
+      IRefNode<TPath, TInput6, TRes>,
+      IRefNode<TPath, TInput7, TRes>,
+      IRefNode<TPath, TInputLast, TRes>,
+    ]
+  ): RpcNode<TSchema & ToSchema<TMethod, TPath, TInputLast, MergeTypedResponse<TRes>>, TBasePath>
+
+  // app.get(path, handler x8)
+  <
+    TPath extends string = ExtractStringKey<TSchema> extends never ? TBasePath : ExtractStringKey<TSchema>,
+    TInput extends Input = BlankInput,
+    TInput2 extends Input = BlankInput,
+    TInput3 extends Input = BlankInput,
+    TInput4 extends Input = BlankInput,
+    TInput5 extends Input = BlankInput,
+    TInput6 extends Input = BlankInput,
+    TInput7 extends Input = BlankInput,
+    TInputLast extends Input = BlankInput,
+    TRes extends HandlerResponse<any> = any,
+  >(
+    path: TPath,
+    ...handlers: [
+      IRefNode<TPath, TInput, TRes>,
+      IRefNode<TPath, TInput2, TRes>,
+      IRefNode<TPath, TInput3, TRes>,
+      IRefNode<TPath, TInput4, TRes>,
+      IRefNode<TPath, TInput5, TRes>,
+      IRefNode<TPath, TInput6, TRes>,
+      IRefNode<TPath, TInput7, TRes>,
+      IRefNode<TPath, TInputLast, TRes>,
+    ]
+  ): RpcNode<TSchema & ToSchema<TMethod, MergePath<TBasePath, TPath>, TInputLast, MergeTypedResponse<TRes>>, TBasePath>
+
+  // app.get(handler x9)
+  <
+    TPath extends string = ExtractStringKey<TSchema> extends never ? TBasePath : ExtractStringKey<TSchema>,
+    TInput extends Input = BlankInput,
+    TInput2 extends Input = BlankInput,
+    TInput3 extends Input = BlankInput,
+    TInput4 extends Input = BlankInput,
+    TInput5 extends Input = BlankInput,
+    TInput6 extends Input = BlankInput,
+    TInput7 extends Input = BlankInput,
+    TInput8 extends Input = BlankInput,
+    TInputLast extends Input = BlankInput,
+    TRes extends HandlerResponse<any> = any,
+  >(
+    ...handlers: [
+      IRefNode<TPath, TInput, TRes>,
+      IRefNode<TPath, TInput2, TRes>,
+      IRefNode<TPath, TInput3, TRes>,
+      IRefNode<TPath, TInput4, TRes>,
+      IRefNode<TPath, TInput5, TRes>,
+      IRefNode<TPath, TInput6, TRes>,
+      IRefNode<TPath, TInput7, TRes>,
+      IRefNode<TPath, TInput8, TRes>,
+      IRefNode<TPath, TInputLast, TRes>,
+    ]
+  ): RpcNode<TSchema & ToSchema<TMethod, TPath, TInputLast, MergeTypedResponse<TRes>>, TBasePath>
+
+  // app.get(path, handler x9)
+  <
+    TPath extends string = ExtractStringKey<TSchema> extends never ? TBasePath : ExtractStringKey<TSchema>,
+    TInput extends Input = BlankInput,
+    TInput2 extends Input = BlankInput,
+    TInput3 extends Input = BlankInput,
+    TInput4 extends Input = BlankInput,
+    TInput5 extends Input = BlankInput,
+    TInput6 extends Input = BlankInput,
+    TInput7 extends Input = BlankInput,
+    TInput8 extends Input = BlankInput,
+    TInputLast extends Input = BlankInput,
+    TRes extends HandlerResponse<any> = any,
+  >(
+    path: TPath,
+    ...handlers: [
+      IRefNode<TPath, TInput, TRes>,
+      IRefNode<TPath, TInput2, TRes>,
+      IRefNode<TPath, TInput3, TRes>,
+      IRefNode<TPath, TInput4, TRes>,
+      IRefNode<TPath, TInput5, TRes>,
+      IRefNode<TPath, TInput6, TRes>,
+      IRefNode<TPath, TInput7, TRes>,
+      IRefNode<TPath, TInput8, TRes>,
+      IRefNode<TPath, TInputLast, TRes>,
+    ]
+  ): RpcNode<TSchema & ToSchema<TMethod, MergePath<TBasePath, TPath>, TInputLast, MergeTypedResponse<TRes>>, TBasePath>
+
+  // app.get(handler x10)
+  <
+    TPath extends string = ExtractStringKey<TSchema> extends never ? TBasePath : ExtractStringKey<TSchema>,
+    TInput extends Input = BlankInput,
+    TInput2 extends Input = BlankInput,
+    TInput3 extends Input = BlankInput,
+    TInput4 extends Input = BlankInput,
+    TInput5 extends Input = BlankInput,
+    TInput6 extends Input = BlankInput,
+    TInput7 extends Input = BlankInput,
+    TInput8 extends Input = BlankInput,
+    TInput9 extends Input = BlankInput,
+    TInputLast extends Input = BlankInput,
+    TRes extends HandlerResponse<any> = any,
+  >(
+    ...handlers: [
+      IRefNode<TPath, TInput, TRes>,
+      IRefNode<TPath, TInput2, TRes>,
+      IRefNode<TPath, TInput3, TRes>,
+      IRefNode<TPath, TInput4, TRes>,
+      IRefNode<TPath, TInput5, TRes>,
+      IRefNode<TPath, TInput6, TRes>,
+      IRefNode<TPath, TInput7, TRes>,
+      IRefNode<TPath, TInput8, TRes>,
+      IRefNode<TPath, TInput9, TRes>,
+      IRefNode<TPath, TInputLast, TRes>,
+    ]
+  ): RpcNode<TSchema & ToSchema<TMethod, TPath, TInputLast, MergeTypedResponse<TRes>>, TBasePath>
+
+  // app.get(path, handler x10)
+  <
+    TPath extends string = ExtractStringKey<TSchema> extends never ? TBasePath : ExtractStringKey<TSchema>,
+    TInput extends Input = BlankInput,
+    TInput2 extends Input = BlankInput,
+    TInput3 extends Input = BlankInput,
+    TInput4 extends Input = BlankInput,
+    TInput5 extends Input = BlankInput,
+    TInput6 extends Input = BlankInput,
+    TInput7 extends Input = BlankInput,
+    TInput8 extends Input = BlankInput,
+    TInput9 extends Input = BlankInput,
+    TInputLast extends Input = BlankInput,
+    TRes extends HandlerResponse<any> = any,
+  >(
+    path: TPath,
+    ...handlers: [
+      IRefNode<TPath, TInput, TRes>,
+      IRefNode<TPath, TInput2, TRes>,
+      IRefNode<TPath, TInput3, TRes>,
+      IRefNode<TPath, TInput4, TRes>,
+      IRefNode<TPath, TInput5, TRes>,
+      IRefNode<TPath, TInput6, TRes>,
+      IRefNode<TPath, TInput7, TRes>,
+      IRefNode<TPath, TInput8, TRes>,
+      IRefNode<TPath, TInput9, TRes>,
+      IRefNode<TPath, TInputLast, TRes>,
+    ]
+  ): RpcNode<TSchema & ToSchema<TMethod, MergePath<TBasePath, TPath>, TInputLast, MergeTypedResponse<TRes>>, TBasePath>
 }
