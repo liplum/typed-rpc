@@ -14,11 +14,11 @@ importers:
         specifier: 5.8.3
         version: 5.8.3
 
-  packages/test/src:
+  packages/test:
     devDependencies:
       '@liplum/rpc':
         specifier: workspace:^
-        version: link:../../rpc/src
+        version: link:../rpc/src
       typescript:
         specifier: 5.8.3
         version: 5.8.3
