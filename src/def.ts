@@ -47,6 +47,11 @@ export type IRefDef<
   TRes extends HandlerResponse<any> = any
 > = MiddlewareHandler<TPath, TInput> | FinalHandler<TPath, TInput, TRes>
 
+export const defineRpc = <
+  TSchema extends Schema = BlankSchema,
+  TBasePath extends string = "/",
+>() => new RpcDef<TSchema, TBasePath>()
+
 export class RpcDef<
   TSchema extends Schema = BlankSchema,
   TBasePath extends string = "/",
@@ -62,8 +67,8 @@ export class RpcDef<
 
 type MergeTypedResponse<T> = T extends Promise<infer T2>
   ? T2 extends TypedResponse
-    ? T2
-    : TypedResponse
+  ? T2
+  : TypedResponse
   : T extends TypedResponse
   ? T
   : TypedResponse
