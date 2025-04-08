@@ -149,19 +149,19 @@ export const rpcClient = <T extends RpcNode<any, any>>(
     // allow calling .toString() and .valueOf() on the proxy
     if (lastParts[0] === 'toString') {
       if (lastParts[1] === 'name') {
-        // e.g. hc().somePath.name.toString() -> "somePath"
+        // e.g. rpcClient().somePath.name.toString() -> "somePath"
         return lastParts[2] || ''
       }
-      // e.g. hc().somePath.toString()
+      // e.g. rpcClient().somePath.toString()
       return proxyCallback.toString()
     }
 
     if (lastParts[0] === 'valueOf') {
       if (lastParts[1] === 'name') {
-        // e.g. hc().somePath.name.valueOf() -> "somePath"
+        // e.g. rpcClient().somePath.name.valueOf() -> "somePath"
         return lastParts[2] || ''
       }
-      // e.g. hc().somePath.valueOf()
+      // e.g. rpcClient().somePath.valueOf()
       return proxyCallback
     }
 
@@ -302,7 +302,7 @@ class ClientRequestImpl {
     const setBody = !(methodUpperCase === 'GET' || methodUpperCase === 'HEAD')
 
     // Pass URL string to 1st arg for testing with MSW and node-fetch
-    return (opt?.fetch || fetch)(url, {
+    return (opt?.fetch ?? fetch)(url, {
       body: setBody ? this.rBody : undefined,
       method: methodUpperCase,
       headers: headers,

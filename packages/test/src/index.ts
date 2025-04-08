@@ -3,6 +3,8 @@ import express, { Router } from "express"
 import { zValidator } from "@liplum/rpc-zod"
 import { z } from "zod"
 import validate from "express-zod-safe"
+import { install as installSourceMap } from "source-map-support"
+installSourceMap()
 
 const sendMessageZod = z.object({
   content: z.string(),
@@ -31,6 +33,7 @@ const client = rpcClient<RpcType>('http://localhost:12888')
 
 const createApp = () => {
   const app = express()
+  app.use(express.json())
   app.get("/ping", async (req, res) => {
     res.status(200).send("pong").end()
   })
@@ -39,11 +42,12 @@ const createApp = () => {
   chat.post("/send-message", validate({
     body: sendMessageZod,
   }), (req, res) => {
+    const { content } = req.body
     const success = Math.random() < 0.5
     res.status(200).send(success ? {
       success: true,
       data: {
-        content: req.body.content,
+        content: content,
       }
     } : {
       success: false,
@@ -69,18 +73,17 @@ createApp().listen(12888)
 {
   const res = await client.chat["send-message"].$post({
     json: {
-      content: "Hello, world!"
+      content: "Hello, world!",
     }
   })
   if (res.ok) {
     const data = await res.json()
-    console.log(JSON.stringify(data))
     if (data.success) {
       console.log(`Succeed to send message "${data.data.content}."`)
     } else {
       console.log(`Failed to send message due to "${data.error.reason}"`)
     }
   } else {
-    console.error(`${res.status} ${res.statusText}`)
+    console.error(`${res.status} ${res.statusText}: ${await res.text()}`)
   }
 }
