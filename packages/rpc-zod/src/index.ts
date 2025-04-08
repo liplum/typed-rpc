@@ -1,7 +1,7 @@
 import { } from "@liplum/rpc"
 import { MiddlewareHandler } from "@liplum/rpc/dist/rpc";
 import { Input, ValidationTargets } from "@liplum/rpc/dist/typing/rpc";
-import type { ZodSchema, z } from 'zod'
+import { type ZodSchema, type z } from 'zod'
 
 type HasUndefined<T> = undefined extends T ? true : false
 
@@ -11,7 +11,7 @@ export const zValidator = <
   TPath extends string,
   In = z.input<TZod>,
   Out = z.output<TZod>,
-  I extends Input = {
+  TInput extends Input = {
     in: HasUndefined<In> extends true
     ? {
       [K in TTarget]?: In extends ValidationTargets[K]
@@ -25,7 +25,7 @@ export const zValidator = <
     }
     out: { [K in TTarget]: Out }
   },
-  V extends I = I
+  V extends TInput = TInput
 >(
   _target: TTarget,
   _schema: TZod,

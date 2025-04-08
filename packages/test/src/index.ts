@@ -2,14 +2,17 @@ import { rpc, rpcClient } from "@liplum/rpc"
 import express, { Router } from "express"
 import { zValidator } from "@liplum/rpc-zod"
 import { z } from "zod"
+import validate from "express-zod-safe"
+
+const sendMessageZod = z.object({
+  content: z.string(),
+})
 
 const rpcDef = rpc()
   .get("/ping", r => r.text())
   .route("/chat", rpc()
     .post("/send-message",
-      zValidator("json", z.object({
-        message: z.string(),
-      })),
+      zValidator("json", sendMessageZod),
       r => r.union(
         r.json<{
           success: true,
@@ -36,12 +39,14 @@ const createApp = () => {
   })
   const chat = Router()
   app.use("/chat", chat)
-  chat.post("/send-message", (req, res) => {
+  chat.post("/send-message", validate({
+    body: sendMessageZod,
+  }), (req, res) => {
     const success = Math.random() < 0.5
     res.status(200).send(success ? {
       success: true,
       data: {
-        content: "Hello, world!"
+        content: req.body.content,
       }
     } : {
       success: false,
@@ -62,7 +67,9 @@ createApp().listen(12888)
 
 {
   const res = await client.chat["send-message"].$post({
-    
+    json: {
+      content: "Hello, world!"
+    }
   })
   const data = await res.json()
   if (data.success) {
