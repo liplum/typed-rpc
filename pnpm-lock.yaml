@@ -8,7 +8,7 @@ importers:
 
   .: {}
 
-  packages/rpc/src:
+  packages/rpc:
     devDependencies:
       typescript:
         specifier: 5.8.3
@@ -22,7 +22,7 @@ importers:
     devDependencies:
       '@liplum/rpc':
         specifier: workspace:^
-        version: link:../rpc/src
+        version: link:../rpc
       typescript:
         specifier: 5.8.3
         version: 5.8.3

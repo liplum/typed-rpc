@@ -1,7 +1,7 @@
-import { ContentfulStatusCode, RedirectStatusCode, StatusCode } from "./status-code.js"
-import { InvalidJSONValue, JSONParsed, JSONValue, } from "./json.js"
-import { SimplifyDeepArray } from "./utils.js"
-import { ResponseFormat } from "./rpc.js"
+import { ContentfulStatusCode, RedirectStatusCode, StatusCode } from "./typing/status-code.js"
+import { InvalidJSONValue, JSONParsed, JSONValue, } from "./typing/json.js"
+import { SimplifyDeepArray } from "./typing/utils.js"
+import { ResponseFormat } from "./typing/rpc.js"
 
 export type RpcResponse<
   TValue = unknown,
@@ -50,8 +50,9 @@ export type RpcResponseAny<
   TStatus extends StatusCode = ContentfulStatusCode,
 > = RpcResponse<undefined, TStatus, 'body'>
 
-
 export interface RpcResponseFactory {
+  <TRes extends RpcResponse>(): TRes
+
   union: RpcResponseUnion
 
   json: <

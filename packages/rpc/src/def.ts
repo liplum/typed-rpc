@@ -1,5 +1,5 @@
 import { IRpcRoute } from "./typing/handler.js"
-import { RpcResponseFactory, RpcResponse } from "./typing/response.js"
+import { RpcResponseFactory, RpcResponse } from "./response.js"
 import { StatusCode } from "./typing/status-code.js"
 import { mergePath } from "./utils/request.js"
 import { IsAny, PrefixWith$, Simplify, UnionToIntersection } from "./typing/utils.js"

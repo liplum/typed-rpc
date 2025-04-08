@@ -1,6 +1,6 @@
 import { IRpcNode, RpcNode, ToSchema } from "../def.js"
 import { ExtractStringKey } from "./utils.js"
-import { RpcResponse, MergeTypedResponse } from "./response.js"
+import { RpcResponse, MergeTypedResponse } from "../response.js"
 import { BlankInput, BlankSchema, Input, MergePath, Schema } from "./rpc.js"
 
 export interface IRpcRoute<
