@@ -1,6 +1,6 @@
 export {
   rpc,
-} from "./def.js"
+} from "./rpc.js"
 
 export {
   rpcClient

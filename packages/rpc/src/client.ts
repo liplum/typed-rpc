@@ -1,5 +1,5 @@
 import { serialize } from "./utils/cookie.js";
-import { RpcNode } from "./def.js";
+import { RpcNode } from "./rpc.js";
 import { Endpoint, FormValue, ResponseFormat, Schema, ValidationTargets } from "./typing/rpc.js";
 import { StatusCode, SuccessStatusCode } from "./typing/status-code.js";
 import { replaceUrlParam, buildSearchParams, replaceUrlProtocol, mergePath, deepMerge, removeIndexString } from "./utils/request.js";

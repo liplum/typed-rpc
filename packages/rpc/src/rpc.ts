@@ -14,7 +14,7 @@ export type TerminalNode<
   _TPath extends string = any,
   _TInput extends Input = BlankInput,
   TRes extends RpcResponse<any> = any
-> = (res: RpcResponseFactory) => TRes
+> = (r: RpcResponseFactory) => TRes
 
 export type IRpcNode<
   TPath extends string = any,
@@ -46,17 +46,46 @@ export interface Router<T> {
    */
   add(method: string, path: string, handler: T): void
 }
+
 export interface RouterRoute {
   path: string
   method: string
   handler: IRpcNode
 }
+
+/**
+ * Array of supported HTTP methods.
+ */
+export const METHODS = ['get', 'post', 'put', 'delete', 'options', 'patch'] as const
+/**
+ * Constant representing all HTTP methods in lowercase.
+ */
+export const METHOD_NAME_ALL_LOWERCASE = 'all' as const
+
 export class RpcNode<
   TSchema extends Schema = BlankSchema,
   TBasePath extends string = "/",
 > {
   private _basePath: string = '/'
+  private path: string = '/'
   routes: RouterRoute[] = []
+
+  constructor() {
+    const allMethods = [...METHODS, METHOD_NAME_ALL_LOWERCASE]
+    allMethods.forEach((method) => {
+      this[method] = (args1: string | IRpcNode, ...args: IRpcNode[]) => {
+        if (typeof args1 === 'string') {
+          this.path = args1
+        } else {
+          this.addRoute(method, this.path, args1)
+        }
+        args.forEach((handler) => {
+          this.addRoute(method, this.path, handler)
+        })
+        return this as any
+      }
+    })
+  }
 
   get!: IRpcRoute<'get', TSchema, TBasePath>
   post!: IRpcRoute<'post', TSchema, TBasePath>
@@ -64,6 +93,7 @@ export class RpcNode<
   delete!: IRpcRoute<'delete', TSchema, TBasePath>
   options!: IRpcRoute<'options', TSchema, TBasePath>
   patch!: IRpcRoute<'patch', TSchema, TBasePath>
+  all!: IRpcRoute<'all', TSchema, TBasePath>
 
   route<
     TSubPath extends string,
