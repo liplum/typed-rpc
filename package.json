@@ -25,7 +25,7 @@
   },
   "author": "Liplum <Li_plum@outlook.com>",
   "devDependencies": {
-    "typescript": "5.6.2"
+    "typescript": "5.8.3"
   },
   "bugs": {
     "url": "https://github.com/liplum/define-rpc.js/issues"
