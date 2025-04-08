@@ -1,5 +1,5 @@
 import { serialize } from "./cookie.js";
-import { Endpoint, ResponseFormat, RpcDef, Schema } from "./def.js";
+import { Endpoint, ResponseFormat, RpcNode, Schema } from "./def.js";
 import { StatusCode, SuccessStatusCode } from "./status-code.js";
 import { replaceUrlParam, buildSearchParams, replaceUrlProtocol, mergePath, deepMerge, removeIndexString } from "./utils/request.js";
 import { FormValue, HasRequiredKeys, UnionToIntersection, ValidationTargets } from "./utils/typing.js";
@@ -104,7 +104,7 @@ export type ClientRequestOptions<T = unknown> = {
     headers: T | (() => T | Promise<T>)
   })
 
-export type Client<T> = T extends RpcDef<infer TSchema, any>
+export type Client<T> = T extends RpcNode<infer TSchema, any>
   ? TSchema extends Record<infer K, Schema>
   ? K extends string
   ? PathToChain<K, TSchema>
@@ -137,7 +137,7 @@ const createProxy = (callback: Callback, path: string[]) => {
   return proxy
 }
 
-export const rpcClient = <T extends RpcDef<any, any>>(
+export const rpcClient = <T extends RpcNode<any, any>>(
   baseUrl: string,
   options?: ClientRequestOptions
 ) =>

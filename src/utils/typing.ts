@@ -1,3 +1,4 @@
+import { Endpoint, Schema } from "../def.js"
 import { CustomHeader, RequestHeader } from "../headers.js"
 
 export type MergePath<A extends string, B extends string> = B extends ''
@@ -15,6 +16,62 @@ export type MergePath<A extends string, B extends string> = B extends ''
   ? A
   : `${A}/${Q}`
   : `${A}/${B}`
+
+export type MergeSchemaPath<OrigSchema extends Schema, SubPath extends string> = {
+  [P in keyof OrigSchema as MergePath<SubPath, P & string>]: [OrigSchema[P]] extends [
+    Record<string, Endpoint>
+  ]
+  ? { [M in keyof OrigSchema[P]]: MergeEndpointParamsWithPath<OrigSchema[P][M], SubPath> }
+  : never
+}
+
+type ExtractParams<Path extends string> = string extends Path
+  ? Record<string, string>
+  : Path extends `${infer _Start}:${infer Param}/${infer Rest}`
+  ? { [K in Param | keyof ExtractParams<`/${Rest}`>]: string }
+  : Path extends `${infer _Start}:${infer Param}`
+  ? { [K in Param]: string }
+  : never
+
+
+export type RemoveBlankRecord<T> = T extends Record<infer K, unknown>
+  ? K extends string
+  ? T
+  : never
+  : never
+
+type FlattenIfIntersect<T> = T extends infer O ? { [K in keyof O]: O[K] } : never
+
+type MergeEndpointParamsWithPath<T extends Endpoint, SubPath extends string> = T extends unknown
+  ? {
+    input: T['input'] extends { param: infer _ }
+    ? ExtractParams<SubPath> extends never
+    ? T['input']
+    : FlattenIfIntersect<
+      T['input'] & {
+        param: {
+          // Maps extracted keys, stripping braces, to a string-typed record.
+          [K in keyof ExtractParams<SubPath> as K extends `${infer Prefix}{${infer _}}`
+          ? Prefix
+          : K]: string
+        }
+      }
+    >
+    : RemoveBlankRecord<ExtractParams<SubPath>> extends never
+    ? T['input']
+    : T['input'] & {
+      // Maps extracted keys, stripping braces, to a string-typed record.
+      param: {
+        [K in keyof ExtractParams<SubPath> as K extends `${infer Prefix}{${infer _}}`
+        ? Prefix
+        : K]: string
+      }
+    }
+    output: T['output']
+    outputFormat: T['outputFormat']
+    status: T['status']
+  }
+  : never
 
 export type PrefixWith$<T extends string> = `$${Lowercase<T>}`
 
@@ -45,7 +102,7 @@ export type RequiredKeysOf<BaseType extends object> = Exclude<
 export type HasRequiredKeys<BaseType extends object> = RequiredKeysOf<BaseType> extends never
   ? false
   : true
-  
+
 export type FormValue = string | Blob
 export type ParsedFormValue = string | File
 

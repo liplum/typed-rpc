@@ -1,6 +1,7 @@
 import { JSONValue } from "./json.js"
 import { StatusCode } from "./status-code.js"
-import { ExtractStringKey, IsAny, PrefixWith$, Simplify, UnionToIntersection } from "./utils/typing.js"
+import { mergePath } from "./utils/request.js"
+import { ExtractStringKey, IsAny, MergePath, MergeSchemaPath, PrefixWith$, Simplify, UnionToIntersection } from "./utils/typing.js"
 
 export type BlankSchema = {}
 export type BlankInput = {}
@@ -41,7 +42,7 @@ export type FinalHandler<
   TRes extends HandlerResponse<any> = any
 > = (_: TPath | TInput | undefined) => TRes
 
-export type IRefDef<
+export type IRefNode<
   TPath extends string = any,
   TInput extends Input = BlankInput,
   TRes extends HandlerResponse<any> = any
@@ -50,19 +51,92 @@ export type IRefDef<
 export const defineRpc = <
   TSchema extends Schema = BlankSchema,
   TBasePath extends string = "/",
->() => new RpcDef<TSchema, TBasePath>()
+>() => new RpcNode<TSchema, TBasePath>()
+/**
+ * Interface representing a router.
+ *
+ * @template T - The type of the handler.
+ */
+export interface Router<T> {
+  /**
+   * The name of the router.
+   */
+  name: string
 
-export class RpcDef<
+  /**
+   * Adds a route to the router.
+   *
+   * @param method - The HTTP method (e.g., 'get', 'post').
+   * @param path - The path for the route.
+   * @param handler - The handler for the route.
+   */
+  add(method: string, path: string, handler: T): void
+}
+export interface RouterRoute {
+  path: string
+  method: string
+  handler: IRefNode
+}
+export class RpcNode<
   TSchema extends Schema = BlankSchema,
   TBasePath extends string = "/",
 > {
+  private _basePath: string = '/'
+  routes: RouterRoute[] = []
+
   get!: IRpcRefHandler<'get', TSchema, TBasePath>
   post!: IRpcRefHandler<'post', TSchema, TBasePath>
   put!: IRpcRefHandler<'put', TSchema, TBasePath>
   delete!: IRpcRefHandler<'delete', TSchema, TBasePath>
   options!: IRpcRefHandler<'options', TSchema, TBasePath>
   patch!: IRpcRefHandler<'patch', TSchema, TBasePath>
-  all!: IRpcRefHandler<'all', TSchema, TBasePath>
+
+  route<
+    TSubPath extends string,
+    TSubSchema extends Schema,
+    TSubBasePath extends string
+  >(
+    path: TSubPath,
+    app: RpcNode<TSubSchema, TSubBasePath>
+  ): RpcNode<MergeSchemaPath<TSubSchema, MergePath<TBasePath, TSubPath>> | TSchema, TBasePath> {
+    const subApp = this.basePath(path)
+    app.routes.map((r) => {
+      subApp.addRoute(r.method, r.path, r.handler)
+    })
+    return this
+  }
+
+  private addRoute(method: string, path: string, handler: IRefNode) {
+    method = method.toUpperCase()
+    path = mergePath(this._basePath, path)
+    const r: RouterRoute = { path, method, handler }
+    this.routes.push(r)
+  }
+
+  /**
+ * `.basePath()` allows base paths to be specified.
+ *
+ * @see {@link https://hono.dev/docs/api/routing#base-path}
+ *
+ * @param {string} path - base Path
+ * @returns {Hono} changed Hono instance
+ *
+ * @example
+ * ```ts
+ * const api = new Hono().basePath('/api')
+ * ```
+ */
+  basePath<TSubPath extends string>(path: TSubPath): RpcNode<TSchema, MergePath<TBasePath, TSubPath>> {
+    const subApp = this.clone()
+    subApp._basePath = mergePath(this._basePath, path)
+    return subApp
+  }
+
+  private clone(): RpcNode<TSchema, TBasePath> {
+    const clone = new RpcNode<TSchema, TBasePath>()
+    clone.routes = this.routes
+    return clone
+  }
 }
 
 type MergeTypedResponse<T> = T extends Promise<infer T2>
@@ -84,8 +158,8 @@ export interface IRpcRefHandler<
     TInput extends Input = BlankInput,
     TRes extends HandlerResponse<any> = any,
   >(
-    handler: IRefDef<TPath, TInput, TRes>
-  ): RpcDef<TSchema & ToSchema<TMethod, TPath, TInput, MergeTypedResponse<TRes>>, TBasePath>
+    handler: IRefNode<TPath, TInput, TRes>
+  ): RpcNode<TSchema & ToSchema<TMethod, TPath, TInput, MergeTypedResponse<TRes>>, TBasePath>
 }
 
 export type Endpoint = {
