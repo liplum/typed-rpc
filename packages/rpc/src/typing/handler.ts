@@ -1,4 +1,4 @@
-import { IRpcNode, RpcNode, ToSchema } from "../rpc.js"
+import { RpcHandler, RpcNode, ToSchema } from "../rpc.js"
 import { ExtractStringKey } from "./utils.js"
 import { RpcResponse, MergeTypedResponse } from "../response.js"
 import { BlankInput, BlankSchema, Input, MergePath, Schema } from "./rpc.js"
@@ -14,7 +14,7 @@ export interface IRpcRoute<
     TInput extends Input = BlankInput,
     TRes extends RpcResponse<any> = any,
   >(
-    handler: IRpcNode<TPath, TInput, TRes>
+    handler: RpcHandler<TPath, TInput, TRes>
   ): RpcNode<TSchema & ToSchema<TMethod, TPath, TInput, MergeTypedResponse<TRes>>, TBasePath>
 
   // app.get(path, handler)
@@ -24,7 +24,7 @@ export interface IRpcRoute<
     TRes extends RpcResponse<any> = any,
   >(
     path: TPath,
-    handler: IRpcNode<TPath, TInput, TRes>
+    handler: RpcHandler<TPath, TInput, TRes>
   ): RpcNode<TSchema & ToSchema<TMethod, MergePath<TBasePath, TPath>, TInput, MergeTypedResponse<TRes>>, TBasePath>
 
   // app.get(handler x2)
@@ -35,8 +35,8 @@ export interface IRpcRoute<
     TRes extends RpcResponse<any> = any,
   >(
     ...handlers: [
-      IRpcNode<TPath, TInput, TRes>,
-      IRpcNode<TPath, TInputLast, TRes>,
+      RpcHandler<TPath, TInput, TRes>,
+      RpcHandler<TPath, TInputLast, TRes>,
     ]
   ): RpcNode<TSchema & ToSchema<TMethod, TPath, TInputLast, MergeTypedResponse<TRes>>, TBasePath>
 
@@ -49,8 +49,8 @@ export interface IRpcRoute<
   >(
     path: TPath,
     ...handlers: [
-      IRpcNode<TPath, TInput, TRes>,
-      IRpcNode<TPath, TInputLast, TRes>,
+      RpcHandler<TPath, TInput, TRes>,
+      RpcHandler<TPath, TInputLast, TRes>,
     ]
   ): RpcNode<TSchema & ToSchema<TMethod, MergePath<TBasePath, TPath>, TInputLast, MergeTypedResponse<TRes>>, TBasePath>
 
@@ -63,9 +63,9 @@ export interface IRpcRoute<
     TRes extends RpcResponse<any> = any,
   >(
     ...handlers: [
-      IRpcNode<TPath, TInput, TRes>,
-      IRpcNode<TPath, TInput2, TRes>,
-      IRpcNode<TPath, TInputLast, TRes>,
+      RpcHandler<TPath, TInput, TRes>,
+      RpcHandler<TPath, TInput2, TRes>,
+      RpcHandler<TPath, TInputLast, TRes>,
     ]
   ): RpcNode<TSchema & ToSchema<TMethod, TPath, TInputLast, MergeTypedResponse<TRes>>, TBasePath>
 
@@ -79,9 +79,9 @@ export interface IRpcRoute<
   >(
     path: TPath,
     ...handlers: [
-      IRpcNode<TPath, TInput, TRes>,
-      IRpcNode<TPath, TInput2, TRes>,
-      IRpcNode<TPath, TInputLast, TRes>,
+      RpcHandler<TPath, TInput, TRes>,
+      RpcHandler<TPath, TInput2, TRes>,
+      RpcHandler<TPath, TInputLast, TRes>,
     ]
   ): RpcNode<TSchema & ToSchema<TMethod, MergePath<TBasePath, TPath>, TInputLast, MergeTypedResponse<TRes>>, TBasePath>
 
@@ -95,10 +95,10 @@ export interface IRpcRoute<
     TRes extends RpcResponse<any> = any,
   >(
     ...handlers: [
-      IRpcNode<TPath, TInput, TRes>,
-      IRpcNode<TPath, TInput2, TRes>,
-      IRpcNode<TPath, TInput3, TRes>,
-      IRpcNode<TPath, TInputLast, TRes>,
+      RpcHandler<TPath, TInput, TRes>,
+      RpcHandler<TPath, TInput2, TRes>,
+      RpcHandler<TPath, TInput3, TRes>,
+      RpcHandler<TPath, TInputLast, TRes>,
     ]
   ): RpcNode<TSchema & ToSchema<TMethod, TPath, TInputLast, MergeTypedResponse<TRes>>, TBasePath>
 
@@ -113,10 +113,10 @@ export interface IRpcRoute<
   >(
     path: TPath,
     ...handlers: [
-      IRpcNode<TPath, TInput, TRes>,
-      IRpcNode<TPath, TInput2, TRes>,
-      IRpcNode<TPath, TInput3, TRes>,
-      IRpcNode<TPath, TInputLast, TRes>,
+      RpcHandler<TPath, TInput, TRes>,
+      RpcHandler<TPath, TInput2, TRes>,
+      RpcHandler<TPath, TInput3, TRes>,
+      RpcHandler<TPath, TInputLast, TRes>,
     ]
   ): RpcNode<TSchema & ToSchema<TMethod, MergePath<TBasePath, TPath>, TInputLast, MergeTypedResponse<TRes>>, TBasePath>
 
@@ -131,11 +131,11 @@ export interface IRpcRoute<
     TRes extends RpcResponse<any> = any,
   >(
     ...handlers: [
-      IRpcNode<TPath, TInput, TRes>,
-      IRpcNode<TPath, TInput2, TRes>,
-      IRpcNode<TPath, TInput3, TRes>,
-      IRpcNode<TPath, TInput4, TRes>,
-      IRpcNode<TPath, TInputLast, TRes>,
+      RpcHandler<TPath, TInput, TRes>,
+      RpcHandler<TPath, TInput2, TRes>,
+      RpcHandler<TPath, TInput3, TRes>,
+      RpcHandler<TPath, TInput4, TRes>,
+      RpcHandler<TPath, TInputLast, TRes>,
     ]
   ): RpcNode<TSchema & ToSchema<TMethod, TPath, TInputLast, MergeTypedResponse<TRes>>, TBasePath>
 
@@ -151,11 +151,11 @@ export interface IRpcRoute<
   >(
     path: TPath,
     ...handlers: [
-      IRpcNode<TPath, TInput, TRes>,
-      IRpcNode<TPath, TInput2, TRes>,
-      IRpcNode<TPath, TInput3, TRes>,
-      IRpcNode<TPath, TInput4, TRes>,
-      IRpcNode<TPath, TInputLast, TRes>,
+      RpcHandler<TPath, TInput, TRes>,
+      RpcHandler<TPath, TInput2, TRes>,
+      RpcHandler<TPath, TInput3, TRes>,
+      RpcHandler<TPath, TInput4, TRes>,
+      RpcHandler<TPath, TInputLast, TRes>,
     ]
   ): RpcNode<TSchema & ToSchema<TMethod, MergePath<TBasePath, TPath>, TInputLast, MergeTypedResponse<TRes>>, TBasePath>
 
@@ -171,12 +171,12 @@ export interface IRpcRoute<
     TRes extends RpcResponse<any> = any,
   >(
     ...handlers: [
-      IRpcNode<TPath, TInput, TRes>,
-      IRpcNode<TPath, TInput2, TRes>,
-      IRpcNode<TPath, TInput3, TRes>,
-      IRpcNode<TPath, TInput4, TRes>,
-      IRpcNode<TPath, TInput5, TRes>,
-      IRpcNode<TPath, TInputLast, TRes>,
+      RpcHandler<TPath, TInput, TRes>,
+      RpcHandler<TPath, TInput2, TRes>,
+      RpcHandler<TPath, TInput3, TRes>,
+      RpcHandler<TPath, TInput4, TRes>,
+      RpcHandler<TPath, TInput5, TRes>,
+      RpcHandler<TPath, TInputLast, TRes>,
     ]
   ): RpcNode<TSchema & ToSchema<TMethod, TPath, TInputLast, MergeTypedResponse<TRes>>, TBasePath>
 
@@ -193,12 +193,12 @@ export interface IRpcRoute<
   >(
     path: TPath,
     ...handlers: [
-      IRpcNode<TPath, TInput, TRes>,
-      IRpcNode<TPath, TInput2, TRes>,
-      IRpcNode<TPath, TInput3, TRes>,
-      IRpcNode<TPath, TInput4, TRes>,
-      IRpcNode<TPath, TInput5, TRes>,
-      IRpcNode<TPath, TInputLast, TRes>,
+      RpcHandler<TPath, TInput, TRes>,
+      RpcHandler<TPath, TInput2, TRes>,
+      RpcHandler<TPath, TInput3, TRes>,
+      RpcHandler<TPath, TInput4, TRes>,
+      RpcHandler<TPath, TInput5, TRes>,
+      RpcHandler<TPath, TInputLast, TRes>,
     ]
   ): RpcNode<TSchema & ToSchema<TMethod, MergePath<TBasePath, TPath>, TInputLast, MergeTypedResponse<TRes>>, TBasePath>
 
@@ -215,13 +215,13 @@ export interface IRpcRoute<
     TRes extends RpcResponse<any> = any,
   >(
     ...handlers: [
-      IRpcNode<TPath, TInput, TRes>,
-      IRpcNode<TPath, TInput2, TRes>,
-      IRpcNode<TPath, TInput3, TRes>,
-      IRpcNode<TPath, TInput4, TRes>,
-      IRpcNode<TPath, TInput5, TRes>,
-      IRpcNode<TPath, TInput6, TRes>,
-      IRpcNode<TPath, TInputLast, TRes>,
+      RpcHandler<TPath, TInput, TRes>,
+      RpcHandler<TPath, TInput2, TRes>,
+      RpcHandler<TPath, TInput3, TRes>,
+      RpcHandler<TPath, TInput4, TRes>,
+      RpcHandler<TPath, TInput5, TRes>,
+      RpcHandler<TPath, TInput6, TRes>,
+      RpcHandler<TPath, TInputLast, TRes>,
     ]
   ): RpcNode<TSchema & ToSchema<TMethod, TPath, TInputLast, MergeTypedResponse<TRes>>, TBasePath>
 
@@ -239,13 +239,13 @@ export interface IRpcRoute<
   >(
     path: TPath,
     ...handlers: [
-      IRpcNode<TPath, TInput, TRes>,
-      IRpcNode<TPath, TInput2, TRes>,
-      IRpcNode<TPath, TInput3, TRes>,
-      IRpcNode<TPath, TInput4, TRes>,
-      IRpcNode<TPath, TInput5, TRes>,
-      IRpcNode<TPath, TInput6, TRes>,
-      IRpcNode<TPath, TInputLast, TRes>,
+      RpcHandler<TPath, TInput, TRes>,
+      RpcHandler<TPath, TInput2, TRes>,
+      RpcHandler<TPath, TInput3, TRes>,
+      RpcHandler<TPath, TInput4, TRes>,
+      RpcHandler<TPath, TInput5, TRes>,
+      RpcHandler<TPath, TInput6, TRes>,
+      RpcHandler<TPath, TInputLast, TRes>,
     ]
   ): RpcNode<TSchema & ToSchema<TMethod, MergePath<TBasePath, TPath>, TInputLast, MergeTypedResponse<TRes>>, TBasePath>
 
@@ -263,14 +263,14 @@ export interface IRpcRoute<
     TRes extends RpcResponse<any> = any,
   >(
     ...handlers: [
-      IRpcNode<TPath, TInput, TRes>,
-      IRpcNode<TPath, TInput2, TRes>,
-      IRpcNode<TPath, TInput3, TRes>,
-      IRpcNode<TPath, TInput4, TRes>,
-      IRpcNode<TPath, TInput5, TRes>,
-      IRpcNode<TPath, TInput6, TRes>,
-      IRpcNode<TPath, TInput7, TRes>,
-      IRpcNode<TPath, TInputLast, TRes>,
+      RpcHandler<TPath, TInput, TRes>,
+      RpcHandler<TPath, TInput2, TRes>,
+      RpcHandler<TPath, TInput3, TRes>,
+      RpcHandler<TPath, TInput4, TRes>,
+      RpcHandler<TPath, TInput5, TRes>,
+      RpcHandler<TPath, TInput6, TRes>,
+      RpcHandler<TPath, TInput7, TRes>,
+      RpcHandler<TPath, TInputLast, TRes>,
     ]
   ): RpcNode<TSchema & ToSchema<TMethod, TPath, TInputLast, MergeTypedResponse<TRes>>, TBasePath>
 
@@ -289,14 +289,14 @@ export interface IRpcRoute<
   >(
     path: TPath,
     ...handlers: [
-      IRpcNode<TPath, TInput, TRes>,
-      IRpcNode<TPath, TInput2, TRes>,
-      IRpcNode<TPath, TInput3, TRes>,
-      IRpcNode<TPath, TInput4, TRes>,
-      IRpcNode<TPath, TInput5, TRes>,
-      IRpcNode<TPath, TInput6, TRes>,
-      IRpcNode<TPath, TInput7, TRes>,
-      IRpcNode<TPath, TInputLast, TRes>,
+      RpcHandler<TPath, TInput, TRes>,
+      RpcHandler<TPath, TInput2, TRes>,
+      RpcHandler<TPath, TInput3, TRes>,
+      RpcHandler<TPath, TInput4, TRes>,
+      RpcHandler<TPath, TInput5, TRes>,
+      RpcHandler<TPath, TInput6, TRes>,
+      RpcHandler<TPath, TInput7, TRes>,
+      RpcHandler<TPath, TInputLast, TRes>,
     ]
   ): RpcNode<TSchema & ToSchema<TMethod, MergePath<TBasePath, TPath>, TInputLast, MergeTypedResponse<TRes>>, TBasePath>
 
@@ -315,15 +315,15 @@ export interface IRpcRoute<
     TRes extends RpcResponse<any> = any,
   >(
     ...handlers: [
-      IRpcNode<TPath, TInput, TRes>,
-      IRpcNode<TPath, TInput2, TRes>,
-      IRpcNode<TPath, TInput3, TRes>,
-      IRpcNode<TPath, TInput4, TRes>,
-      IRpcNode<TPath, TInput5, TRes>,
-      IRpcNode<TPath, TInput6, TRes>,
-      IRpcNode<TPath, TInput7, TRes>,
-      IRpcNode<TPath, TInput8, TRes>,
-      IRpcNode<TPath, TInputLast, TRes>,
+      RpcHandler<TPath, TInput, TRes>,
+      RpcHandler<TPath, TInput2, TRes>,
+      RpcHandler<TPath, TInput3, TRes>,
+      RpcHandler<TPath, TInput4, TRes>,
+      RpcHandler<TPath, TInput5, TRes>,
+      RpcHandler<TPath, TInput6, TRes>,
+      RpcHandler<TPath, TInput7, TRes>,
+      RpcHandler<TPath, TInput8, TRes>,
+      RpcHandler<TPath, TInputLast, TRes>,
     ]
   ): RpcNode<TSchema & ToSchema<TMethod, TPath, TInputLast, MergeTypedResponse<TRes>>, TBasePath>
 
@@ -343,15 +343,15 @@ export interface IRpcRoute<
   >(
     path: TPath,
     ...handlers: [
-      IRpcNode<TPath, TInput, TRes>,
-      IRpcNode<TPath, TInput2, TRes>,
-      IRpcNode<TPath, TInput3, TRes>,
-      IRpcNode<TPath, TInput4, TRes>,
-      IRpcNode<TPath, TInput5, TRes>,
-      IRpcNode<TPath, TInput6, TRes>,
-      IRpcNode<TPath, TInput7, TRes>,
-      IRpcNode<TPath, TInput8, TRes>,
-      IRpcNode<TPath, TInputLast, TRes>,
+      RpcHandler<TPath, TInput, TRes>,
+      RpcHandler<TPath, TInput2, TRes>,
+      RpcHandler<TPath, TInput3, TRes>,
+      RpcHandler<TPath, TInput4, TRes>,
+      RpcHandler<TPath, TInput5, TRes>,
+      RpcHandler<TPath, TInput6, TRes>,
+      RpcHandler<TPath, TInput7, TRes>,
+      RpcHandler<TPath, TInput8, TRes>,
+      RpcHandler<TPath, TInputLast, TRes>,
     ]
   ): RpcNode<TSchema & ToSchema<TMethod, MergePath<TBasePath, TPath>, TInputLast, MergeTypedResponse<TRes>>, TBasePath>
 
@@ -371,16 +371,16 @@ export interface IRpcRoute<
     TRes extends RpcResponse<any> = any,
   >(
     ...handlers: [
-      IRpcNode<TPath, TInput, TRes>,
-      IRpcNode<TPath, TInput2, TRes>,
-      IRpcNode<TPath, TInput3, TRes>,
-      IRpcNode<TPath, TInput4, TRes>,
-      IRpcNode<TPath, TInput5, TRes>,
-      IRpcNode<TPath, TInput6, TRes>,
-      IRpcNode<TPath, TInput7, TRes>,
-      IRpcNode<TPath, TInput8, TRes>,
-      IRpcNode<TPath, TInput9, TRes>,
-      IRpcNode<TPath, TInputLast, TRes>,
+      RpcHandler<TPath, TInput, TRes>,
+      RpcHandler<TPath, TInput2, TRes>,
+      RpcHandler<TPath, TInput3, TRes>,
+      RpcHandler<TPath, TInput4, TRes>,
+      RpcHandler<TPath, TInput5, TRes>,
+      RpcHandler<TPath, TInput6, TRes>,
+      RpcHandler<TPath, TInput7, TRes>,
+      RpcHandler<TPath, TInput8, TRes>,
+      RpcHandler<TPath, TInput9, TRes>,
+      RpcHandler<TPath, TInputLast, TRes>,
     ]
   ): RpcNode<TSchema & ToSchema<TMethod, TPath, TInputLast, MergeTypedResponse<TRes>>, TBasePath>
 
@@ -401,16 +401,16 @@ export interface IRpcRoute<
   >(
     path: TPath,
     ...handlers: [
-      IRpcNode<TPath, TInput, TRes>,
-      IRpcNode<TPath, TInput2, TRes>,
-      IRpcNode<TPath, TInput3, TRes>,
-      IRpcNode<TPath, TInput4, TRes>,
-      IRpcNode<TPath, TInput5, TRes>,
-      IRpcNode<TPath, TInput6, TRes>,
-      IRpcNode<TPath, TInput7, TRes>,
-      IRpcNode<TPath, TInput8, TRes>,
-      IRpcNode<TPath, TInput9, TRes>,
-      IRpcNode<TPath, TInputLast, TRes>,
+      RpcHandler<TPath, TInput, TRes>,
+      RpcHandler<TPath, TInput2, TRes>,
+      RpcHandler<TPath, TInput3, TRes>,
+      RpcHandler<TPath, TInput4, TRes>,
+      RpcHandler<TPath, TInput5, TRes>,
+      RpcHandler<TPath, TInput6, TRes>,
+      RpcHandler<TPath, TInput7, TRes>,
+      RpcHandler<TPath, TInput8, TRes>,
+      RpcHandler<TPath, TInput9, TRes>,
+      RpcHandler<TPath, TInputLast, TRes>,
     ]
   ): RpcNode<TSchema & ToSchema<TMethod, MergePath<TBasePath, TPath>, TInputLast, MergeTypedResponse<TRes>>, TBasePath>
 }

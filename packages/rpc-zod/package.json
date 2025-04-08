@@ -1,7 +1,7 @@
 {
-  "name": "@liplum/rpc",
+  "name": "@liplum/rpc-zod",
   "version": "0.1.0",
-  "description": "Define the strongly-typed RPC client in TypeScript.",
+  "description": "Use Zod in the RPC client in TypeScript.",
   "main": "dist/index.js",
   "type": "module",
   "typings": "dist/index.d.ts",
@@ -32,9 +32,12 @@
   },
   "homepage": "https://github.com/liplum/rpc.js#readme",
   "keywords": [
-    "rpc"
+    "rpc",
+    "zod"
   ],
   "dependencies": {
+    "zod": "^3.24.2",
+    "@liplum/rpc": "workspace:^"
   },
   "packageManager": "pnpm@10.4.0"
 }

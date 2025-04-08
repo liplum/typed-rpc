@@ -1,23 +1,29 @@
 import { rpc, rpcClient } from "@liplum/rpc"
 import express, { Router } from "express"
+import { zValidator } from "@liplum/rpc-zod"
+import { z } from "zod"
 
 const rpcDef = rpc()
-  .get("/ping", res => res.text())
+  .get("/ping", r => r.text())
   .route("/chat", rpc()
-    .post("/send-message", r => r.union(
-      r.json<{
-        success: true,
-        data: {
-          content: string
-        }
-      }>(),
-      r.json<{
-        success: false,
-        error: {
-          reason: string,
-        }
-      }>(),
-    ))
+    .post("/send-message",
+      zValidator("json", z.object({
+        message: z.string(),
+      })),
+      r => r.union(
+        r.json<{
+          success: true,
+          data: {
+            content: string
+          }
+        }>(),
+        r.json<{
+          success: false,
+          error: {
+            reason: string,
+          }
+        }>(),
+      ))
   )
 
 type RpcType = typeof rpcDef
@@ -56,7 +62,7 @@ createApp().listen(12888)
 
 {
   const res = await client.chat["send-message"].$post({
-
+    
   })
   const data = await res.json()
   if (data.success) {

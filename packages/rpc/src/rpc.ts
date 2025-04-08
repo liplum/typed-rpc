@@ -5,22 +5,22 @@ import { mergePath } from "./utils/request.js"
 import { IsAny, PrefixWith$, Simplify, UnionToIntersection } from "./typing/utils.js"
 import { ResponseFormat, Input, BlankInput, Schema, BlankSchema, MergeSchemaPath, MergePath } from "./typing/rpc.js"
 
-export type MiddlewareNode<
+export type MiddlewareHandler<
   _TPath extends string = string,
   _TInput extends Input = {}
 > = () => void
 
-export type TerminalNode<
+export type TerminalHandler<
   _TPath extends string = any,
   _TInput extends Input = BlankInput,
   TRes extends RpcResponse<any> = any
 > = (r: RpcResponseFactory) => TRes
 
-export type IRpcNode<
+export type RpcHandler<
   TPath extends string = any,
   TInput extends Input = BlankInput,
   TRes extends RpcResponse<any> = any
-> = MiddlewareNode<TPath, TInput> | TerminalNode<TPath, TInput, TRes>
+> = MiddlewareHandler<TPath, TInput> | TerminalHandler<TPath, TInput, TRes>
 
 export const rpc = <
   TSchema extends Schema = BlankSchema,
@@ -50,7 +50,7 @@ export interface Router<T> {
 export interface RouterRoute {
   path: string
   method: string
-  handler: IRpcNode
+  handler: RpcHandler
 }
 
 /**
@@ -73,7 +73,7 @@ export class RpcNode<
   constructor() {
     const allMethods = [...METHODS, METHOD_NAME_ALL_LOWERCASE]
     allMethods.forEach((method) => {
-      this[method] = (args1: string | IRpcNode, ...args: IRpcNode[]) => {
+      this[method] = (args1: string | RpcHandler, ...args: RpcHandler[]) => {
         if (typeof args1 === 'string') {
           this.path = args1
         } else {
@@ -110,7 +110,7 @@ export class RpcNode<
     return this
   }
 
-  private addRoute(method: string, path: string, handler: IRpcNode) {
+  private addRoute(method: string, path: string, handler: RpcHandler) {
     method = method.toUpperCase()
     path = mergePath(this._basePath, path)
     const r: RouterRoute = { path, method, handler }

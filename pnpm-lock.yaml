@@ -14,15 +14,34 @@ importers:
         specifier: 5.8.3
         version: 5.8.3
 
+  packages/rpc-zod:
+    dependencies:
+      '@liplum/rpc':
+        specifier: workspace:^
+        version: link:../rpc
+      zod:
+        specifier: ^3.24.2
+        version: 3.24.2
+    devDependencies:
+      typescript:
+        specifier: 5.8.3
+        version: 5.8.3
+
   packages/test:
     dependencies:
       express:
         specifier: ^5.1.0
         version: 5.1.0
+      zod:
+        specifier: ^3.24.2
+        version: 3.24.2
     devDependencies:
       '@liplum/rpc':
         specifier: workspace:^
         version: link:../rpc
+      '@liplum/rpc-zod':
+        specifier: workspace:^
+        version: link:../rpc-zod
       '@types/express':
         specifier: ^5.0.1
         version: 5.0.1
@@ -330,6 +349,9 @@ packages:
 
   wrappy@1.0.2:
     resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}
+
+  zod@3.24.2:
+    resolution: {integrity: sha512-lY7CDW43ECgW9u1TcT3IoXHflywfVqDYze4waEz812jR/bZ8FHDsl7pFQoSZTz5N+2NqRXs8GBwnAwo3ZNxqhQ==}
 
 snapshots:
 
@@ -676,3 +698,5 @@ snapshots:
   vary@1.1.2: {}
 
   wrappy@1.0.2: {}
+
+  zod@3.24.2: {}

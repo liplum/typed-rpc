@@ -10,10 +10,12 @@
   },
   "devDependencies": {
     "@liplum/rpc": "workspace:^",
+    "@liplum/rpc-zod": "workspace:^",
     "@types/express": "^5.0.1",
     "typescript": "5.8.3"
   },
   "dependencies": {
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "zod": "^3.24.2"
   }
 }
