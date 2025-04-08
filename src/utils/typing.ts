@@ -114,3 +114,10 @@ export type ValidationTargets<T extends FormValue = ParsedFormValue, P extends s
   header: Record<RequestHeader | CustomHeader, string>
   cookie: Record<string, string>
 }
+
+/**
+ * A simple extension of Simplify that will deeply traverse array elements.
+ */
+export type SimplifyDeepArray<T> = T extends any[]
+  ? { [E in keyof T]: SimplifyDeepArray<T[E]> }
+  : Simplify<T>

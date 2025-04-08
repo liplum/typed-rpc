@@ -1,6 +1,6 @@
 import { IRpcRefHandler } from "./handler.js"
-import { JSONValue } from "./json.js"
 import { StatusCode } from "./status-code.js"
+import { JSONValue } from "./utils/json.js"
 import { mergePath } from "./utils/request.js"
 import { IsAny, MergePath, MergeSchemaPath, PrefixWith$, Simplify, UnionToIntersection } from "./utils/typing.js"
 
