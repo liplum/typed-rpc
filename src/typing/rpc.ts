@@ -1,5 +1,30 @@
-import { Endpoint, Schema } from "../def.js"
-import { CustomHeader, RequestHeader } from "../headers.js"
+import { CustomHeader, RequestHeader } from "./headers.js"
+import { StatusCode } from "./status-code.js"
+
+export type Schema = {
+  [Path: string]: {
+    [Method: `$${Lowercase<string>}`]: Endpoint
+  }
+}
+
+export type KnownResponseFormat = 'json' | 'text' | 'redirect'
+export type ResponseFormat = KnownResponseFormat | string
+
+export type Input = {
+  in?: {}
+  out?: {}
+  outputFormat?: ResponseFormat
+}
+
+export type Endpoint = {
+  input: any
+  output: any
+  outputFormat: ResponseFormat
+  status: StatusCode
+}
+
+export type BlankSchema = {}
+export type BlankInput = {}
 
 export type MergePath<A extends string, B extends string> = B extends ''
   ? MergePath<A, '/'>
@@ -16,22 +41,6 @@ export type MergePath<A extends string, B extends string> = B extends ''
   ? A
   : `${A}/${Q}`
   : `${A}/${B}`
-
-export type MergeSchemaPath<OrigSchema extends Schema, SubPath extends string> = {
-  [P in keyof OrigSchema as MergePath<SubPath, P & string>]: [OrigSchema[P]] extends [
-    Record<string, Endpoint>
-  ]
-  ? { [M in keyof OrigSchema[P]]: MergeEndpointParamsWithPath<OrigSchema[P][M], SubPath> }
-  : never
-}
-
-type ExtractParams<Path extends string> = string extends Path
-  ? Record<string, string>
-  : Path extends `${infer _Start}:${infer Param}/${infer Rest}`
-  ? { [K in Param | keyof ExtractParams<`/${Rest}`>]: string }
-  : Path extends `${infer _Start}:${infer Param}`
-  ? { [K in Param]: string }
-  : never
 
 
 export type RemoveBlankRecord<T> = T extends Record<infer K, unknown>
@@ -73,35 +82,22 @@ type MergeEndpointParamsWithPath<T extends Endpoint, SubPath extends string> = T
   }
   : never
 
-export type PrefixWith$<T extends string> = `$${Lowercase<T>}`
 
-export type ExtractStringKey<S> = keyof S & string
-
-/**
-* Useful to flatten the type output to improve type hints shown in editors. And also to transform an interface into a type to aide with assignability.
-* @copyright from sindresorhus/type-fest
-*/
-export type Simplify<T> = { [KeyType in keyof T]: T[KeyType] } & {}
-
-
-export type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (
-  k: infer I
-) => void
-  ? I
+export type MergeSchemaPath<OrigSchema extends Schema, SubPath extends string> = {
+  [P in keyof OrigSchema as MergePath<SubPath, P & string>]: [OrigSchema[P]] extends [
+    Record<string, Endpoint>
+  ]
+  ? { [M in keyof OrigSchema[P]]: MergeEndpointParamsWithPath<OrigSchema[P][M], SubPath> }
   : never
+}
 
-export type IsAny<T> = boolean extends (T extends never ? true : false) ? true : false
-
-export type RequiredKeysOf<BaseType extends object> = Exclude<
-  {
-    [Key in keyof BaseType]: BaseType extends Record<Key, BaseType[Key]> ? Key : never
-  }[keyof BaseType],
-  undefined
->
-
-export type HasRequiredKeys<BaseType extends object> = RequiredKeysOf<BaseType> extends never
-  ? false
-  : true
+type ExtractParams<Path extends string> = string extends Path
+  ? Record<string, string>
+  : Path extends `${infer _Start}:${infer Param}/${infer Rest}`
+  ? { [K in Param | keyof ExtractParams<`/${Rest}`>]: string }
+  : Path extends `${infer _Start}:${infer Param}`
+  ? { [K in Param]: string }
+  : never
 
 export type FormValue = string | Blob
 export type ParsedFormValue = string | File
@@ -114,10 +110,3 @@ export type ValidationTargets<T extends FormValue = ParsedFormValue, P extends s
   header: Record<RequestHeader | CustomHeader, string>
   cookie: Record<string, string>
 }
-
-/**
- * A simple extension of Simplify that will deeply traverse array elements.
- */
-export type SimplifyDeepArray<T> = T extends any[]
-  ? { [E in keyof T]: SimplifyDeepArray<T[E]> }
-  : Simplify<T>

@@ -1,5 +1,5 @@
 export {
-  defineRpc,
+  rpc,
 } from "./def.js"
 
 export {

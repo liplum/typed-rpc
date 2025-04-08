@@ -1,8 +1,9 @@
-import { serialize } from "./cookie.js";
-import { Endpoint, ResponseFormat, RpcNode, Schema } from "./def.js";
-import { StatusCode, SuccessStatusCode } from "./status-code.js";
+import { serialize } from "./utils/cookie.js";
+import { RpcNode } from "./def.js";
+import { Endpoint, FormValue, ResponseFormat, Schema, ValidationTargets } from "./typing/rpc.js";
+import { StatusCode, SuccessStatusCode } from "./typing/status-code.js";
 import { replaceUrlParam, buildSearchParams, replaceUrlProtocol, mergePath, deepMerge, removeIndexString } from "./utils/request.js";
-import { FormValue, HasRequiredKeys, UnionToIntersection, ValidationTargets } from "./utils/typing.js";
+import { HasRequiredKeys, UnionToIntersection } from "./typing/utils.js";
 
 export type PathToChain<
   TPath extends string,

@@ -18,9 +18,9 @@ export type CookieOptions = {
   prefix?: CookiePrefixOptions
 } & PartitionedCookieConstraint
 
-type SecureCookieConstraint = { secure: true }
+export type SecureCookieConstraint = { secure: true }
 
-type HostCookieConstraint = { secure: true; path: '/'; domain?: undefined }
+export type HostCookieConstraint = { secure: true; path: '/'; domain?: undefined }
 
 export type CookieConstraint<Name> = Name extends `__Secure-${string}`
   ? CookieOptions & SecureCookieConstraint

@@ -1,4 +1,3 @@
-
 export const mergePath = (base: string, path: string) => {
   base = base.replace(/\/+$/, '')
   base = base + '/'
@@ -42,6 +41,7 @@ export const replaceUrlProtocol = (urlString: string, protocol: 'ws' | 'http') =
       return urlString.replace(/^ws/, 'http')
   }
 }
+
 
 export type ObjectType<T = unknown> = {
   [key: string]: T

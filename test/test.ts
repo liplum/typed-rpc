@@ -1,7 +1,7 @@
-import { defineRpc, rpcClient } from "../src"
+import { rpc, rpcClient } from "../src"
 
-const rpc = defineRpc()
-  .route("/user", defineRpc()
+const rpcDef = rpc()
+  .route("/user", rpc()
     .get(res => res.union(
       res.json({
         success: true,
@@ -12,12 +12,12 @@ const rpc = defineRpc()
     )
     .post(() => { })
   )
-  .route("/chat", defineRpc()
+  .route("/chat", rpc()
     .post("/send-message", () => { }
     )
   )
 
-type RpcType = typeof rpc
+type RpcType = typeof rpcDef
 
 const client = rpcClient<RpcType>('http://localhost:3000')
 

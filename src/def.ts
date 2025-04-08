@@ -1,37 +1,9 @@
-import { IRpcRefHandler } from "./handler.js"
-import { RpcResponseFactory } from "./response.js"
-import { StatusCode } from "./status-code.js"
-import { JSONValue } from "./utils/json.js"
+import { IRpcRefHandler } from "./typing/handler.js"
+import { RpcResponseFactory, RpcResponse } from "./typing/response.js"
+import { StatusCode } from "./typing/status-code.js"
 import { mergePath } from "./utils/request.js"
-import { IsAny, MergePath, MergeSchemaPath, PrefixWith$, Simplify, UnionToIntersection } from "./utils/typing.js"
-
-export type BlankSchema = {}
-export type BlankInput = {}
-
-export type KnownResponseFormat = 'json' | 'text' | 'redirect'
-export type ResponseFormat = KnownResponseFormat | string
-
-export type Input = {
-  in?: {}
-  out?: {}
-  outputFormat?: ResponseFormat
-}
-
-export type TypedResponse<
-  TValue = unknown,
-  TStatus extends StatusCode = StatusCode,
-  TFormat extends ResponseFormat = TValue extends string
-  ? 'text'
-  : TValue extends JSONValue
-  ? 'json'
-  : ResponseFormat
-> = {
-  _data: TValue
-  _status: TStatus
-  _format: TFormat
-}
-
-export type HandlerResponse<O> = TypedResponse<O>
+import { IsAny, PrefixWith$, Simplify, UnionToIntersection } from "./typing/utils.js"
+import { ResponseFormat, Input, BlankInput, Schema, BlankSchema, MergeSchemaPath, MergePath } from "./typing/rpc.js"
 
 export type MiddlewareNode<
   _TPath extends string = string,
@@ -41,16 +13,16 @@ export type MiddlewareNode<
 export type TerminalNode<
   _TPath extends string = any,
   _TInput extends Input = BlankInput,
-  TRes extends HandlerResponse<any> = any
+  TRes extends RpcResponse<any> = any
 > = (res: RpcResponseFactory) => TRes
 
-export type IRefNode<
+export type IRpcNode<
   TPath extends string = any,
   TInput extends Input = BlankInput,
-  TRes extends HandlerResponse<any> = any
+  TRes extends RpcResponse<any> = any
 > = MiddlewareNode<TPath, TInput> | TerminalNode<TPath, TInput, TRes>
 
-export const defineRpc = <
+export const rpc = <
   TSchema extends Schema = BlankSchema,
   TBasePath extends string = "/",
 >() => new RpcNode<TSchema, TBasePath>()
@@ -77,7 +49,7 @@ export interface Router<T> {
 export interface RouterRoute {
   path: string
   method: string
-  handler: IRefNode
+  handler: IRpcNode
 }
 export class RpcNode<
   TSchema extends Schema = BlankSchema,
@@ -108,7 +80,7 @@ export class RpcNode<
     return this
   }
 
-  private addRoute(method: string, path: string, handler: IRefNode) {
+  private addRoute(method: string, path: string, handler: IRpcNode) {
     method = method.toUpperCase()
     path = mergePath(this._basePath, path)
     const r: RouterRoute = { path, method, handler }
@@ -138,27 +110,6 @@ export class RpcNode<
     const clone = new RpcNode<TSchema, TBasePath>()
     clone.routes = this.routes
     return clone
-  }
-}
-
-export type MergeTypedResponse<T> = T extends Promise<infer T2>
-  ? T2 extends TypedResponse
-  ? T2
-  : TypedResponse
-  : T extends TypedResponse
-  ? T
-  : TypedResponse
-
-export type Endpoint = {
-  input: any
-  output: any
-  outputFormat: ResponseFormat
-  status: StatusCode
-}
-
-export type Schema = {
-  [Path: string]: {
-    [Method: `$${Lowercase<string>}`]: Endpoint
   }
 }
 
@@ -206,7 +157,7 @@ export type ToSchema<
           outputFormat: ResponseFormat
           status: StatusCode
         }
-        : RorO extends TypedResponse<infer T, infer U, infer F>
+        : RorO extends RpcResponse<infer T, infer U, infer F>
         ? {
           output: unknown extends T ? {} : T
           outputFormat: TInput extends { outputFormat: string } ? TInput['outputFormat'] : F
