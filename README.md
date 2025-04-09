@@ -54,9 +54,9 @@ and export its type to share with the clients
 -- you may publish it on a package registry like npm.
 
 ```ts
-import { rpc } from "@liplum/rpc"
+import { rpc } from "@typed-rpc/rpc"
 import { z } from "zod"
-import { zValidator } from "@liplum/rpc-zod"
+import { zValidator } from "@typed-rpc/rpc-zod"
 
 const rpcDef = rpc()
   .get("/ping", r => r.text())
@@ -86,7 +86,7 @@ Finally, create a RPC client with the definition type and config the endpoint.
 Let's send requests!
 
 ```ts
-import { rpcClient } from "@liplum/rpc"
+import { rpcClient } from "@typed-rpc/rpc"
 import { type RpcDefinition } from "./def.js"
 
 const client = rpcClient<RpcDefinition>('http://localhost:12888')
