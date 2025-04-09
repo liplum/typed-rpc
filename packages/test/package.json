@@ -1,5 +1,5 @@
 {
-  "name": "@liplum/rpc-test",
+  "name": "@typed-rpc/test",
   "private": "true",
   "main": "dist/index.js",
   "type": "module",
@@ -9,8 +9,8 @@
     "start": "node dist/index.js"
   },
   "devDependencies": {
-    "@liplum/rpc": "workspace:^",
-    "@liplum/rpc-zod": "workspace:^",
+    "@typed-rpc/rpc": "workspace:^",
+    "@typed-rpc/zod": "workspace:^",
     "@types/express": "^5.0.1",
     "@types/source-map-support": "^0.5.10",
     "typescript": "5.8.3"

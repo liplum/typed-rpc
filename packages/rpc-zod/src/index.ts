@@ -1,6 +1,4 @@
-import { } from "@liplum/rpc"
-import { MiddlewareHandler } from "@liplum/rpc/dist/rpc";
-import { Input, ValidationTargets } from "@liplum/rpc/dist/typing/rpc";
+import { MiddlewareHandler, Input, ValidationTargets } from "@typed-rpc/rpc"
 import { type ZodSchema, type z } from 'zod'
 
 type HasUndefined<T> = undefined extends T ? true : false

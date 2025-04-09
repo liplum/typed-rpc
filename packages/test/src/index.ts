@@ -1,6 +1,6 @@
-import { rpc, rpcClient } from "@liplum/rpc"
+import { rpc, rpcClient } from "@typed-rpc/rpc"
 import express, { Router } from "express"
-import { zValidator } from "@liplum/rpc-zod"
+import { zValidator } from "@typed-rpc/zod"
 import { z } from "zod"
 import validate from "express-zod-safe"
 import { install as installSourceMap } from "source-map-support"

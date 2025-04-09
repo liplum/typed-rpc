@@ -1,4 +1,4 @@
-# rpc.js
+# typed-rpc
 
 Define a strongly-typed RPC client in TypeScript to streamline communication between front-end and back-end systems with ease and reliability.
 

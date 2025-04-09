@@ -1,5 +1,5 @@
 {
-  "name": "@liplum/rpc",
+  "name": "@typed-rpc/rpc",
   "version": "0.1.0",
   "description": "Define a strongly-typed RPC client in TypeScript to streamline communication between front-end and back-end systems with ease and reliability.",
   "main": "dist/index.js",
@@ -21,16 +21,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/liplum/rpc.js.git"
+    "url": "git+https://github.com/liplum/typed-rpc.git"
   },
   "author": "Liplum <Li_plum@outlook.com>",
   "devDependencies": {
     "typescript": "5.8.3"
   },
   "bugs": {
-    "url": "https://github.com/liplum/rpc.js/issues"
+    "url": "https://github.com/liplum/typed-rpc/issues"
   },
-  "homepage": "https://github.com/liplum/rpc.js#readme",
+  "homepage": "https://github.com/liplum/typed-rpc#readme",
   "keywords": [
     "rpc",
     "microservice"
