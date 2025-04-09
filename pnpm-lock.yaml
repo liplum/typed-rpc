@@ -14,19 +14,6 @@ importers:
         specifier: 5.8.3
         version: 5.8.3
 
-  packages/rpc-zod:
-    dependencies:
-      '@typed-rpc/rpc':
-        specifier: workspace:^
-        version: link:../rpc
-      zod:
-        specifier: ^3.24.2
-        version: 3.24.2
-    devDependencies:
-      typescript:
-        specifier: 5.8.3
-        version: 5.8.3
-
   packages/test:
     dependencies:
       express:
@@ -47,13 +34,26 @@ importers:
         version: link:../rpc
       '@typed-rpc/zod':
         specifier: workspace:^
-        version: link:../rpc-zod
+        version: link:../zod
       '@types/express':
         specifier: ^5.0.1
         version: 5.0.1
       '@types/source-map-support':
         specifier: ^0.5.10
         version: 0.5.10
+      typescript:
+        specifier: 5.8.3
+        version: 5.8.3
+
+  packages/zod:
+    dependencies:
+      '@typed-rpc/rpc':
+        specifier: workspace:^
+        version: link:../rpc
+      zod:
+        specifier: ^3.24.2
+        version: 3.24.2
+    devDependencies:
       typescript:
         specifier: 5.8.3
         version: 5.8.3
