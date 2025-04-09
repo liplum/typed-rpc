@@ -48,8 +48,8 @@ importers:
   packages/zod:
     dependencies:
       '@typed-rpc/rpc':
-        specifier: workspace:^
-        version: link:../rpc
+        specifier: ^0.1.0
+        version: 0.1.0
       zod:
         specifier: ^3.24.2
         version: 3.24.2
@@ -59,6 +59,9 @@ importers:
         version: 5.8.3
 
 packages:
+
+  '@typed-rpc/rpc@0.1.0':
+    resolution: {integrity: sha512-J270VJiEa7fm/kJhjkZ8h2UyWTBdsHcuohQoXg04V3uZK8CSPmfaBboVW13+9QMIWWU3QdFN+e4iKkkVaQ4rFA==}
 
   '@types/body-parser@1.19.5':
     resolution: {integrity: sha512-fB3Zu92ucau0iQ0JMCFQE7b/dv8Ot07NI3KaZIkIUNXq82k4eBAqUaneXfleGY9JWskeS9y+u0nXMyspcuQrCg==}
@@ -383,6 +386,8 @@ packages:
     resolution: {integrity: sha512-lY7CDW43ECgW9u1TcT3IoXHflywfVqDYze4waEz812jR/bZ8FHDsl7pFQoSZTz5N+2NqRXs8GBwnAwo3ZNxqhQ==}
 
 snapshots:
+
+  '@typed-rpc/rpc@0.1.0': {}
 
   '@types/body-parser@1.19.5':
     dependencies:
