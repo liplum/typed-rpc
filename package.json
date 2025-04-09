@@ -1,5 +1,5 @@
 {
-  "name": "@liplum/rpc-root",
+  "name": "@typed-rpc/root",
   "private":"true",
   "type": "module",
   "license": "MIT",
