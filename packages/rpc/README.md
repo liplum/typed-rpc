@@ -55,8 +55,8 @@ and export its type to share with the clients
 
 ```ts
 import { rpc } from "@typed-rpc/rpc"
-import { z } from "zod"
 import { zValidator } from "@typed-rpc/rpc-zod"
+import { z } from "zod"
 
 const rpcDef = rpc()
   .get("/ping", r => r.text())
