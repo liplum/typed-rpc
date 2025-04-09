@@ -10,6 +10,10 @@ Define a strongly-typed RPC client in TypeScript to streamline communication bet
 - **Developer-Friendly**: Enhance productivity by reducing boilerplate code and minimizing runtime errors through compile-time type checking.
 - **Flexible and Extensible**: Easily adapt to various back-end frameworks and extend functionality as your application grows.
 
+## Plugins
+
+- [@typed-rpc/zod](https://www.npmjs.com/package/@typed-rpc/zod): seamlessly integrates Zod schema validation.
+
 ## Get Started
 
 First, create a sever in any programming language and framework you want.
@@ -55,7 +59,7 @@ and export its type to share with the clients
 
 ```ts
 import { rpc } from "@typed-rpc/rpc"
-import { zValidator } from "@typed-rpc/rpc-zod"
+import { zValidator } from "@typed-rpc/zod"
 import { z } from "zod"
 
 const rpcDef = rpc()

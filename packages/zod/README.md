@@ -4,7 +4,7 @@ A library that seamlessly integrates Zod schema validation with [@typed-rpc/rpc]
 
 ```ts
 import { rpc } from "@typed-rpc/rpc"
-import { zValidator } from "@typed-rpc/rpc-zod"
+import { zValidator } from "@typed-rpc/zod"
 import { z } from "zod"
 
 const def = rpc()
