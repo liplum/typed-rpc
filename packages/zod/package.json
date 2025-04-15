@@ -37,7 +37,7 @@
   ],
   "dependencies": {
     "zod": "^3.24.2",
-    "@typed-rpc/rpc": "workspace:^"
+    "@typed-rpc/rpc": "^0.2.0"
   },
   "packageManager": "pnpm@10.4.0"
 }
