@@ -10,9 +10,18 @@
     "dist"
   ],
   "exports": {
+    "./client": "./dist/client.js",
+    "./cookies": "./dist/cookies.js",
+    "./handler": "./dist/handler.js",
+    "./headers": "./dist/headers.js",
     ".": "./dist/index.js",
+    "./json": "./dist/json.js",
+    "./mime": "./dist/mime.js",
+    "./request": "./dist/.js",
+    "./response": "./dist/.js",
+    "./rpc": "./dist/rpc.js",
     "./status-code": "./dist/status-code.js",
-    "./rpc": "./dist/rpc.js"
+    "./utils": "./dist/utils.js"
   },
   "scripts": {
     "build": "tsc",
