@@ -1,6 +1,6 @@
 {
   "name": "@typed-rpc/zod",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A library that seamlessly integrates Zod schema validation with @typed-rpc/rpc definitions, ensuring type-safe communication.",
   "main": "dist/index.js",
   "type": "module",
