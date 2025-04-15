@@ -10,7 +10,9 @@
     "dist"
   ],
   "exports": {
-    ".": "./dist/index.js"
+    ".": "./dist/index.js",
+    "./status-code": "./dist/status-code.js",
+    "./rpc": "./dist/rpc.js"
   },
   "scripts": {
     "build": "tsc",
@@ -35,7 +37,6 @@
     "rpc",
     "microservice"
   ],
-  "dependencies": {
-  },
+  "dependencies": {},
   "packageManager": "pnpm@10.4.0"
 }

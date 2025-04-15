@@ -3,13 +3,9 @@ export {
 } from "./rpc.js"
 
 export {
-  rpcClient
+  rpcClient,
 } from "./client.js"
 
-export {
-  type MiddlewareHandler
+export type {
+  MiddlewareHandler, Input, ValidationTargets,
 } from "./rpc.js"
-
-export {
-  type Input, ValidationTargets
-} from "./typing/rpc.js"
