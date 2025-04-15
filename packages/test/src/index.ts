@@ -55,7 +55,7 @@ const createApp = () => {
   app.listen(12888)
 }
 
-type RpcDefinition = typeof rpcDef
+export type RpcDefinition = typeof rpcDef
 const client = rpcClient<RpcDefinition>('http://localhost:12888')
 
 createApp()
