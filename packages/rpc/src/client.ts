@@ -247,6 +247,7 @@ class ClientRequestImpl {
       }
 
       if (args.form) {
+        // TODO: Support uploading files: https://github.com/orgs/honojs/discussions/2298#discussioncomment-8652450
         const form = new FormData()
         for (const [k, v] of Object.entries(args.form)) {
           if (Array.isArray(v)) {
